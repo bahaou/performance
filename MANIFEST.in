@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include performance *.css
+recursive-include performance *.csv
+recursive-include performance *.html
+recursive-include performance *.ico
+recursive-include performance *.js
+recursive-include performance *.json
+recursive-include performance *.md
+recursive-include performance *.png
+recursive-include performance *.py
+recursive-include performance *.svg
+recursive-include performance *.txt
+recursive-exclude performance *.pyc
