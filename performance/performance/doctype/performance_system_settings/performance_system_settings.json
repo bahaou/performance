@@ -1,0 +1,317 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-07-11 11:35:58.321807",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "maximum_monthly_tasks_section",
+  "must_do",
+  "column_break_25",
+  "should_do",
+  "column_break_27",
+  "could_do",
+  "scoring_scheme_section",
+  "completed_must_do",
+  "partially_completed_must_do",
+  "unompleted_must_do",
+  "column_break_7",
+  "completed_should_do",
+  "partially_completed_should_do",
+  "uncompleted_should_do",
+  "column_break_8",
+  "completed_could_do",
+  "partially_completed_could_do",
+  "uncompleted_could_do",
+  "compulsory_competencies_section",
+  "competencies",
+  "maximum_optional_competencies",
+  "section_break_22",
+  "default_naming_series",
+  "column_break_23",
+  "default_naming_series_todo",
+  "final_evaluation_ratio_section",
+  "skills_evaluation",
+  "column_break_17",
+  "goals_evaluation",
+  "score_rating_section",
+  "scores",
+  "calendar_view_to_do_section",
+  "draft_color",
+  "must_do_color",
+  "column_break_34",
+  "uncompleted_color",
+  "should_do_color",
+  "column_break_36",
+  "partially_completed_color",
+  "could_do_color",
+  "column_break_38",
+  "completed_color",
+  "column_break_40",
+  "cancelled_color"
+ ],
+ "fields": [
+  {
+   "fieldname": "maximum_monthly_tasks_section",
+   "fieldtype": "Section Break",
+   "label": "Maximum Monthly Tasks"
+  },
+  {
+   "default": "4",
+   "fieldname": "must_do",
+   "fieldtype": "Select",
+   "label": "Must Do",
+   "options": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "2",
+   "fieldname": "should_do",
+   "fieldtype": "Select",
+   "label": "Should Do",
+   "options": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "could_do",
+   "fieldtype": "Select",
+   "label": "Could Do",
+   "options": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10",
+   "reqd": 1
+  },
+  {
+   "fieldname": "scoring_scheme_section",
+   "fieldtype": "Section Break",
+   "label": "Scoring Scheme"
+  },
+  {
+   "fieldname": "completed_must_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: green;\">Completed </span><b>Must Do</b>"
+  },
+  {
+   "fieldname": "partially_completed_must_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Must Do</b>"
+  },
+  {
+   "fieldname": "unompleted_must_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: red;\">Unompleted</span> <b>Must Do</b>"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "completed_should_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: green;\">Completed </span><b>Should Do</b>"
+  },
+  {
+   "fieldname": "partially_completed_should_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Should Do</b>"
+  },
+  {
+   "fieldname": "uncompleted_should_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: red;\">Uncompleted</span> <b>Should Do</b>"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "completed_could_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: green;\">Completed</span> <b>Could Do</b>"
+  },
+  {
+   "fieldname": "partially_completed_could_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Could Do</b>"
+  },
+  {
+   "fieldname": "uncompleted_could_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: red;\">Uncompleted </span> <b>Could Do</b>"
+  },
+  {
+   "fieldname": "compulsory_competencies_section",
+   "fieldtype": "Section Break",
+   "label": "Compulsory Competencies"
+  },
+  {
+   "fieldname": "competencies",
+   "fieldtype": "Table",
+   "label": "Competenciess",
+   "options": "Competence Item"
+  },
+  {
+   "default": "2",
+   "fieldname": "maximum_optional_competencies",
+   "fieldtype": "Int",
+   "label": "Maximum optional competencies",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "COMP-.YYYY.-",
+   "fieldname": "default_naming_series",
+   "fieldtype": "Data",
+   "label": "Default Naming Series (Competence)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "final_evaluation_ratio_section",
+   "fieldtype": "Section Break",
+   "label": "Final Evaluation Ratio"
+  },
+  {
+   "default": "50",
+   "fieldname": "skills_evaluation",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Skills Evaluation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "50",
+   "fieldname": "goals_evaluation",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Goals Evaluation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "score_rating_section",
+   "fieldtype": "Section Break",
+   "label": "Score Rating"
+  },
+  {
+   "fieldname": "scores",
+   "fieldtype": "Table",
+   "label": "Scores",
+   "options": "Score Ranges",
+   "reqd": 1
+  },
+  {
+   "default": "ToDo-.YYYY.-",
+   "fieldname": "default_naming_series_todo",
+   "fieldtype": "Data",
+   "label": "Default Naming Series (To Do)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "calendar_view_to_do_section",
+   "fieldtype": "Section Break",
+   "label": "Calendar View (To Do)"
+  },
+  {
+   "default": "#a6a57e",
+   "fieldname": "draft_color",
+   "fieldtype": "Color",
+   "label": "Draft"
+  },
+  {
+   "default": "#ff0015",
+   "fieldname": "uncompleted_color",
+   "fieldtype": "Color",
+   "label": "Uncompleted"
+  },
+  {
+   "default": "#d6ba18",
+   "fieldname": "partially_completed_color",
+   "fieldtype": "Color",
+   "label": "Partially Completed"
+  },
+  {
+   "default": "#32db18",
+   "fieldname": "completed_color",
+   "fieldtype": "Color",
+   "label": "Completed"
+  },
+  {
+   "default": "#709294",
+   "fieldname": "cancelled_color",
+   "fieldtype": "Color",
+   "label": "Cancelled"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_40",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "must_do_color",
+   "fieldtype": "Color",
+   "label": "Must Do"
+  },
+  {
+   "fieldname": "should_do_color",
+   "fieldtype": "Color",
+   "label": "Should Do"
+  },
+  {
+   "fieldname": "could_do_color",
+   "fieldtype": "Color",
+   "label": "Could Do"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-07-13 12:09:10.542428",
+ "modified_by": "Administrator",
+ "module": "Performance",
+ "name": "Performance System Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
