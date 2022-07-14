@@ -15,7 +15,7 @@
   "scoring_scheme_section",
   "completed_must_do",
   "partially_completed_must_do",
-  "unompleted_must_do",
+  "uncompleted_must_do",
   "column_break_7",
   "completed_should_do",
   "partially_completed_should_do",
@@ -37,6 +37,8 @@
   "goals_evaluation",
   "score_rating_section",
   "scores",
+  "view_chart_section",
+  "html_46",
   "calendar_view_to_do_section",
   "draft_color",
   "must_do_color",
@@ -103,11 +105,6 @@
    "fieldname": "partially_completed_must_do",
    "fieldtype": "Int",
    "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Must Do</b>"
-  },
-  {
-   "fieldname": "unompleted_must_do",
-   "fieldtype": "Int",
-   "label": "<span style=\"color: red;\">Unompleted</span> <b>Must Do</b>"
   },
   {
    "fieldname": "column_break_7",
@@ -290,12 +287,28 @@
    "fieldname": "could_do_color",
    "fieldtype": "Color",
    "label": "Could Do"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "view_chart_section",
+   "fieldtype": "Section Break",
+   "label": "View Chart"
+  },
+  {
+   "fieldname": "html_46",
+   "fieldtype": "HTML",
+   "options": "<div style=\"text-align: center;\">\n<div id=\"chartdiv\"></div>\n<div id=\"chartnumber\" style=\"font-size: 20px;\"></div>\n\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#chartdiv {\n  width: 100%;\n  height: 300px;\n}\n\n</style>\n"
+  },
+  {
+   "fieldname": "uncompleted_must_do",
+   "fieldtype": "Int",
+   "label": "<span style=\"color: red;\">Uncompleted</span> <b>Must Do</b>"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-07-13 12:09:10.542428",
+ "modified": "2022-07-14 13:09:25.534527",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System Settings",

@@ -5,15 +5,8 @@ const style = document.createElement('style');
 style.textContent = ".summary-value{line-height:1.2 !important;}"
 document.head.appendChild(style);
 
-frappe.query_reports["Monthly Goals"] = {
+frappe.query_reports["Goals Analysis"] = {
 	"filters": [
-		{
-		fieldname: "owner",
-		label: __("Allocated To"),
-		fieldtype: "Link",
-		options: "User",
-		reqd: 1
-		},
 		{
 		fieldname: "fiscal_year",
 		label: __("Fiscal Year"),

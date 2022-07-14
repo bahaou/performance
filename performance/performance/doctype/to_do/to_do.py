@@ -131,4 +131,5 @@ def get_events(doctype, start, end, field_map, filters=None, fields=None):
 		e["subject"]=e["subject"]+"\n<span style='color:red !important;'>"+e["priority"]+"</span>"
 		color=e["status"].lower().replace(" ","_")+"_color"
 		e["color"]=settings[color]
+		e["date"]=str(e["date"])+" 12:00:00"
 	return events

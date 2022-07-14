@@ -54,6 +54,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -61,6 +62,7 @@
    "reqd": 1
   },
   {
+   "default": " ",
    "fieldname": "owner",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -107,7 +109,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-13 13:18:34.241643",
+ "modified": "2022-07-13 16:53:27.968532",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "To Do",

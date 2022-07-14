@@ -1,8 +1,8 @@
 // Copyright (c) 2022, Slnee and contributors
 // For license information, please see license.txt
-
 frappe.ui.form.on('To Do', {
 	refresh: function(frm) {
+		if (1==5 && frm.doc.name.includes("new-to-do")){frm.set_value("owner","");refresh_field("owner")}
 		frappe.call({
 			doc:frm.doc,
 			method:"set_defaults",

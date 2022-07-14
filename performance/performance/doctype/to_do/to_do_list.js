@@ -5,11 +5,14 @@ frappe.call({
 				var styleSheet = document.createElement("style");
 				styleSheet.innerText = r.message;
 				document.head.appendChild(styleSheet);
-				console.log("done");
 				}
 		}
 
 });
+
+var myArray = $('.ellipsis');
+console.log(myArray);
+
 
 
 

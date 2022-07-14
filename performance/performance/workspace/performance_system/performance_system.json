@@ -18,10 +18,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Performances",
+   "label": "Employee",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "",
    "type": "Card Break"
   },
   {
@@ -36,8 +35,17 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Competency Assessment Form",
-   "link_to": "Competency Assessment Form",
+   "label": "Performances",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "",
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Competence",
+   "link_to": "Competence",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -45,8 +53,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Competence",
-   "link_to": "Competence",
+   "label": "Competency Assessment Form",
+   "link_to": "Competency Assessment Form",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -78,6 +86,24 @@
   },
   {
    "hidden": 0,
+   "is_query_report": 1,
+   "label": "Monthly Goals",
+   "link_to": "Monthly Goals",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Goals Analysis",
+   "link_to": "Goals Analysis",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
    "is_query_report": 0,
    "label": "Settings",
    "link_type": "DocType",
@@ -94,7 +120,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-07-13 10:06:40.315483",
+ "modified": "2022-07-14 15:36:39.627873",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System",

@@ -9,7 +9,8 @@
   "from",
   "to",
   "description",
-  "rating"
+  "rating",
+  "color"
  ],
  "fields": [
   {
@@ -42,13 +43,21 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Rating",
-   "options": "5\n4\n3\n2\n1"
+   "options": "5\n4\n3\n2\n1",
+   "reqd": 1
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Color",
+   "in_list_view": 1,
+   "label": "Color",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-07-11 15:55:57.501130",
+ "modified": "2022-07-14 10:46:37.499489",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Score Ranges",
