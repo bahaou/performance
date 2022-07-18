@@ -3,12 +3,13 @@
 frappe.ui.form.on('To Do', {
 	refresh: function(frm) {
 		if (1==5 && frm.doc.name.includes("new-to-do")){frm.set_value("owner","");refresh_field("owner")}
+		if (frm.doc.docstatus==0){
 		frappe.call({
 			doc:frm.doc,
 			method:"set_defaults",
 			async:false,
 			});
-
+		}
 
 
 		if (frm.doc.status=="Uncompleted" || frm.doc.status=="Partially Completed"){

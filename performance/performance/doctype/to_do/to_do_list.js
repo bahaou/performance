@@ -20,11 +20,14 @@ frappe.listview_settings['To Do'] = {
 	 add_fields: ['status'],
 	 hide_name_column: true,
 	 get_indicator(doc) {
+		console.log(doc.status);
+		console.log(doc.name);
+		//return [__("Test"), "completed", "status,=,Completed"];
 		  if (doc.status=="Uncompleted") {  return [__("• Uncompleted"), "uncompleted", "status,=,Uncompleted"];}
 		else if (doc.status=="Draft") {  return [__("• Draft"),"draft", "status,=,Draft"];}
 		else if (doc.status=="Completed") {  return [__("• Completed"), "completed", "status,=,Completed"];}
 		else if (doc.status=="Partially Completed") {  return [__("• Partially Completed"), "partially_completed", "status,=,Partially Completed"];}
-		else{  return [__("Cancelled"), "• cancelled", "status,=,Cancelled"];}
+		else{  return [__("• Cancelled"), "cancelled", "status,=,Cancelled"];}
 	}
 
 

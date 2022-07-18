@@ -40,16 +40,22 @@ def get_data_columns(filters):
 		cdo[m]=0
 		d={"month":m}
 		data.append(d)
-	owner = filters["owner"]
+	if "owner" in filters.keys():
+		owner = filters["owner"]
+	else:
+		owner="sdfsfqsdfqsdfgsdthùjmgùhm"
 	total_total=0
 	if "from_date" in filters.keys() and "to_date" in filters.keys():
 		l=frappe.db.get_list("To Do",filters=[[  'date', 'between', [filters["from_date"], filters["to_date"]]] ,["owner","=",owner],["docstatus","=",1]])
 	else:
 		l=frappe.db.get_list("To Do",filters=[["owner","=",owner],["docstatus","=",1]])
+	completed_tasks=0
+	total_tasks=len(l)
 	for i in l:
 		doc=frappe.get_doc("To Do",i["name"])
 		month=doc.date.strftime("%B")
 		score=0
+		color=""
 		if doc.priority=="Must Do":
 			last_tasks=mdo[month]
 			mdo[month]=last_tasks+1
@@ -57,10 +63,14 @@ def get_data_columns(filters):
 				mmdo=last_tasks+1
 			if doc.status=="Completed":
 				score=cmd
+				color=settings.completed_color
+				completed_tasks+=1
 			elif doc.status=="Partially Completed":
 				score=pcmd
+				color=settings.partially_completed_color
 			else:
 				score=ucmd
+				color=settings.uncompleted_color
 		elif doc.priority=="Should Do":
 			last_tasks=sdo[month]
 			sdo[month]=last_tasks+1
@@ -68,10 +78,14 @@ def get_data_columns(filters):
 				msdo=last_tasks+1
 			if doc.status=="Completed":
 				score=csd
+				completed_tasks+=1
+				color=settings.completed_color
 			elif doc.status=="Partially Completed":
 				score=pcsd
+				color=settings.partially_completed_color
 			else:
 				score=ucmd
+				color=settings.uncompleted_color
 		else:
 			last_tasks=cdo[month]
 			cdo[month]=last_tasks+1
@@ -79,17 +93,21 @@ def get_data_columns(filters):
 				mcdo=last_tasks+1
 			if doc.status=="Completed":
 				score=ccd
+				completed_tasks+=1
+				color=settings.completed_color
 			elif doc.status=="Partially Completed":
 				score=pccd
+				color=settings.partially_completed_color
 			else:
 				score=uccd
+				color=settings.uncompleted_color
 		column=doc.priority.lower().replace(" ","_")+str(last_tasks+1)
 		column_score=doc.priority[0].lower()+str(last_tasks+1)+ "_score"
 		idx=months.index(month)
 		d=data[idx]
 		d[column]=doc.subject
 		month_total[month]+=score
-		d[column_score]=score
+		d[column_score]="<span style='color:"+color+";'>"+str(score)+"</span>"
 		total_total+=score
 	for i in range(mmdo):
 		column="Must do"+str(i+1)
@@ -121,9 +139,20 @@ def get_data_columns(filters):
 			description=s["description"]
 			color=s["color"]
 			break
+	completed_per=(completed_tasks/total_tasks)*100
+	if completed_per>80:
+		per_color=settings.completed_color
+	elif completed_per >40 :
+		per_color=settings.partially_completed_color
+	else:
+		per_color=settings.uncompleted_color
 	data.append({"total":"rate : "+str(rate)})
-	chart = {'data':{'labels':months,'datasets':[{'name':'Score','values':list(month_total.values())}]} ,'type':'line',"colors":["#03befc"]}
-	cards= [	{"label":"Total Score","value":total_total,'indicator':'Blue',"width":50},
-			 {"label":_("Rate"),"value":"<span style='color:"+color+"'>"+str(rate)+ " ("+_(description)+")</span>",'indicator':'green',"width":50}
+	months2=[]
+	for m in months:
+		months2.append(_(m))
+	chart = {'data':{'labels':months2,'datasets':[{'name':'Score','values':list(month_total.values())}]} ,'type':'line',"colors":["#03befc"]}
+	cards= [	{"label":_("Total Score"),"value":total_total,'indicator':'Blue',"width":50},
+			{"label":_("Completed Tasks"),"value":"<span style='color:{}'>{}/{} ({}%)</span>".format(per_color,completed_tasks,total_tasks,round(completed_per,2)),'indicator':'orange',"width":50},
+			 {"label":_("Rating"),"value":"<span style='color:"+color+"'>"+str(rate)+ " ("+_(description)+")</span>",'indicator':'green',"width":50}
 		]
 	return(data,columns,chart,cards)

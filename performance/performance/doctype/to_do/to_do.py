@@ -88,8 +88,9 @@ class ToDo(Document):
 		return 1
 	@frappe.whitelist()
 	def set_defaults(self):
-		naming_series = frappe.get_doc("Performance System Settings").default_naming_series_todo
-		self.naming_series=naming_series
+		if self.docstatus==0:
+			naming_series = frappe.get_doc("Performance System Settings").default_naming_series_todo
+			self.naming_series=naming_series
 @frappe.whitelist()
 def get_css_colors():
 	settings=frappe.get_doc("Performance System Settings")
@@ -125,6 +126,8 @@ def get_events(doctype, start, end, field_map, filters=None, fields=None):
 		fields.append("priority")
 	if "status" not in fields:
 		fields.append("status")
+	if "subject" not in fields:
+		fields.append("subject")
 	events= frappe.get_list(doctype, fields=fields, filters=filters)
 	settings=frappe.get_doc("Performance System Settings").__dict__
 	for e in events:
@@ -132,4 +135,5 @@ def get_events(doctype, start, end, field_map, filters=None, fields=None):
 		color=e["status"].lower().replace(" ","_")+"_color"
 		e["color"]=settings[color]
 		e["date"]=str(e["date"])+" 12:00:00"
+		#e["name"]=e["subject"]
 	return events
