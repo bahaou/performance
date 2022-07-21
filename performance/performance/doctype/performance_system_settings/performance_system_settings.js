@@ -21,6 +21,47 @@ frappe.ui.form.on('Performance System Settings', {
 		}
 	}
 });
+frappe.ui.form.on('Competence Item', {
+	view : function(frm,cdt,cdn){
+		let row = locals[cdt][cdn];
+		let d = new frappe.ui.Dialog({
+			title: row.competence,
+			 fields: [
+				{label: 'Definition',fieldname: 'definition',fieldtype: 'Text',"read_only": 1,"default":row.description},
+				{fieldname :"columnbreak1",fieldtype :"Column Break"},
+				{label : 'Importance',fieldname: 'importance',fieldtype : "Text",read_only : 1,default : row.importance},
+				{fieldname:"section1",fieldtype:"Section Break"},
+				{label:"Level A",fieldname:"level_a",fieldtype:"Data",read_only:1,default:row.level_a},
+				{label:"Description",fieldname:"description_a",fieldtype:"Text",read_only:1,default:row.description_a},
+				{fieldname :"columnbreak1",fieldtype :"Column Break"},
+				{label:"Level B",fieldname:"level_b",fieldtype:"Data",read_only:1,default:row.level_b},
+				{label:"Description",fieldname:"description_b",fieldtype:"Text",read_only:1,default:row.description_b},
+				{fieldname :"columnbreak1",fieldtype :"Column Break"},
+				{label:"Level C",fieldname:"level_c",fieldtype:"Data",read_only:1,default:row.level_c},
+				{label:"Description",fieldname:"description_c",fieldtype:"Text",read_only:1,default:row.description_c},
+				{fieldname:"section2",fieldtype:"Section Break"},
+				{label :"Warning Signs",fieldname:"warning_signs",fieldtype:"Text",read_only:1,default:row.warning_signs},
+				{fieldname:"columnbreak2",fieldtype:"Column Break"},
+				{label :"Positive Indicators",fieldname:"positive_indicators",fieldtype:"Text",read_only:1,default:row.positive_indicators},
+				],
+			primary_action_label: 'Close',
+			primary_action(values) {
+				d.hide();
+			}
+		});
+		d.show();
+		d.$wrapper.find('.modal-dialog').css("max-width", "80%");
+		d.$wrapper.find('.modal-dialog').css("width", "80%");
+		
+
+	}
+});
+
+
+
+
+
+
 
 frappe.ui.form.on('Score Ranges', {
 	scores_add(frm, cdt, cdn) {
@@ -126,7 +167,7 @@ createRange(row.from-1, row.to , am5.color(row.color), row.description);
 
 // Add clock hand 
   var handDataItem = axis.makeDataItem({
-  value: 0
+  value: Math.round(Math.random() * last)
 });
 var hand = handDataItem.set("bullet", am5xy.AxisBullet.new(root, {
   sprite: am5radar.ClockHand.new(root, {
@@ -135,7 +176,7 @@ var hand = handDataItem.set("bullet", am5xy.AxisBullet.new(root, {
 }));
 axis.createAxisRange(handDataItem); handDataItem.get("grid").set("visible", false); handDataItem.get("tick").set("visible", false); setInterval(() => {
  	var random = Math.round(Math.random() * last);
-	console.log(random);
+	//console.log(random);
 	$("#chartnumber").text(random);
  handDataItem.animate({
     key: "value",
@@ -143,7 +184,7 @@ axis.createAxisRange(handDataItem); handDataItem.get("grid").set("visible", fals
     duration: 800,
     easing: am5.ease.out(am5.ease.cubic)
   });
-}, 2000);
+}, 3000);
 }
 
 

@@ -1,0 +1,102 @@
+# Copyright (c) 2022, Slnee and contributors
+# For license information, please see license.txt
+
+import frappe
+from frappe.model.document import Document
+class performancereview(Document):
+	
+
+
+
+	@frappe.whitelist()
+	def get_tasks(self):
+		start_date=self.start_date
+		end_date=self.end_date
+		self.score_table=[]
+		user=frappe.db.get_value("Employee",self.employee,"user_id") or ""
+		if not user:
+			return
+		tasks=frappe.db.get_list("To Do",filters=[['date', 'between', [start_date,end_date]] ,["owner","=",user],["docstatus","=",1]])
+		#frappe.msgprint(str(len(tasks)),raise_exception = False)
+		if len(tasks)==0:
+			return
+		must_do={"name":"Must Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
+		should_do={"name":"Should Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
+		could_do={"name":"Could Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
+		settings=frappe.get_doc("Performance System Settings")
+		total_score=0
+		if self.competencies:
+			com=frappe.get_doc("Competency Assessment Form",self.competencies)
+			self.skills_table=com.competencies
+		for t in tasks:
+			to_do=frappe.get_doc("To Do",t["name"])
+			score=get_score(settings,to_do.status,to_do.priority)
+			total_score+=score
+			if to_do.priority=="Must Do":
+				must_do["s"]+=score
+				must_do[to_do.status]+=1
+			elif to_do.priority=="Should Do":
+				should_do["s"]+=score
+				should_do[to_do.status]+=1
+			else:
+				could_do["s"]+=score
+				could_do[to_do.status]+=1
+		self.score_table=[]
+		for do in [must_do,should_do,could_do]:
+			item = self.append("score_table", {})
+			item.name1=do["name"]
+			item.completed=do["Completed"]
+			item.partially_completed=do["Partially Completed"]
+			item.uncompleted=do["Uncompleted"]
+			item.score=do["s"]
+		self.tasks_rate,self.tasks_description,self.tasks_color=get_tasks_rate(settings,total_score)
+		self.skills_color=get_color(settings,self.skills_rate)
+def get_tasks_rate(settings,score):
+	scores=settings.scores
+	for s in scores:
+		s=s.__dict__
+		if score >= s["from"] and score <= s["to"]:
+			return(s["rating"],s["description"],s["color"])
+	if len(scores)>0 and score > scores[-1].to:
+		return(scores[-1].rating,scores[-1].description,scores[-1].color)
+	return(0,"unknown","#ebab34")
+
+def get_color(settings,rate):
+	from math import ceil
+	scores=settings.scores
+	for s in scores:
+		if int(s.rating)==ceil(rate):
+			return(s.color)
+	return("#ebab34")
+
+def get_score(settings,status,priority):
+	cmd=settings.completed_must_do
+	csd=settings.completed_should_do
+	ccd=settings.completed_could_do
+	pcmd=settings.partially_completed_must_do
+	pcsd=settings.partially_completed_should_do
+	pccd=settings.partially_completed_could_do
+	ucmd=settings.uncompleted_must_do
+	ucsd=settings.uncompleted_should_do
+	uccd=settings.uncompleted_could_do
+	if priority=="Must Do":
+		if status=="Completed":
+			return cmd
+		elif status=="Partially Completed":
+			return pcmd
+		else:
+			return ucmd
+	elif priority=="Should Do":
+		if status=="Completed":
+			return csd
+		elif status=="Partially Completed":
+			return pcsd
+		else:
+			return ucsd
+	else:
+		if status=="Completed":
+			return ccd
+		elif status=="Partially Completed":
+			return pccd
+		else:
+			return uccd

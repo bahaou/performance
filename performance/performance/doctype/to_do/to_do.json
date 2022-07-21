@@ -27,7 +27,7 @@
    "in_filter": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Draft<!-- b -->\nUncompleted\nPartially Completed\nCompleted\nCancelled",
+   "options": "Draft\nUncompleted\nPartially Completed\nCompleted\nCancelled",
    "read_only": 1
   },
   {
@@ -111,7 +111,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-15 13:22:59.467120",
+ "modified": "2022-07-18 17:38:24.279688",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "To Do",

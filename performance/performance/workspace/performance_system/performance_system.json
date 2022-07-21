@@ -18,7 +18,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Employee",
+   "label": "General",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -28,6 +28,15 @@
    "is_query_report": 0,
    "label": "Employee",
    "link_to": "Employee",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "performance review",
+   "link_to": "performance review",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -129,7 +138,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-07-15 14:34:46.222401",
+ "modified": "2022-07-21 12:20:19.093047",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System",

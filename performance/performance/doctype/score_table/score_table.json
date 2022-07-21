@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-07-21 13:05:28.921329",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "completed",
+  "partially_completed",
+  "uncompleted",
+  "score"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "name"
+  },
+  {
+   "fieldname": "completed",
+   "fieldtype": "Int",
+   "label": "completed"
+  },
+  {
+   "fieldname": "partially_completed",
+   "fieldtype": "Int",
+   "label": "partially completed"
+  },
+  {
+   "fieldname": "uncompleted",
+   "fieldtype": "Int",
+   "label": "uncompleted"
+  },
+  {
+   "fieldname": "score",
+   "fieldtype": "Int",
+   "label": "score"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-21 13:05:28.921329",
+ "modified_by": "Administrator",
+ "module": "Performance",
+ "name": "score table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

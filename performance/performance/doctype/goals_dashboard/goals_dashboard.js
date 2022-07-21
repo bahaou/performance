@@ -1,21 +1,109 @@
+$(".btn-primary").hide();
+
+//import {test} from './set_gauge_chart.js';
+frappe.require("/assets/performance/js/set_gauge_chart.js")
+frappe.require("/assets/performance/js/gauge_chart.js")
+frappe.require("/assets/performance/js/radial_bar_chart.js")
+frappe.require("/assets/performance/js/sorted_bar_chart.js")
+frappe.require("/assets/performance/js/range_bullet_chart.js")
+frappe.require("/assets/performance/js/charts/force_directed_tree.js")
 frappe.ui.form.on('Goals Dashboard', {
-	refresh: function(frm) {refresh_chart_scores(frm);},
-	employee : function(frm){if (frm.doc.employee){ refresh_chart_scores(frm);}}
+	refresh: function(frm) {
+	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);}
+				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);}},
+	employee : function(frm){
+	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);}
+				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);}
+	},
+	directed_tree_settings :function(frm){
+		let d = new frappe.ui.Dialog({
+			 title: 'Directed Tree Settings',
+			 fields: [
+				{
+				 label: 'Node Size',
+				 fieldname: "node_size",
+				 fieldtype: "select",
+				 options: [30,40,50,60,70]}
+			],
+			primary_action_label: 'Save',
+			primary_action(values) {
+				
+			}
+		});
+		d.show();
+
+	}
 })
 
+function refresh_directed_force_tree(frm){
+	var competencies=[];
+	for (var i =0; i <frm.doc.radial_bar_data.length;i++){
+		var t={name:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value};
+		competencies.push(t);
+	}
+	var must_do= {name: "Must Do",value:0,children: []};
+	var should_do= {name: "Should Do",value:0,children: []};
+	var could_do= {name: "Could Do",value:0,children: []}
+	var skills = {name: "Competencies",value:frm.doc.competence_score,children:competencies};
+	var task = {name: "Tasks",value:frm.doc.tasks_score,children: [must_do,should_do,could_do]}
+	var data = {name: "Score",value:frm.doc.final_score,children: [skills,task],x:0,y:0,nodeSettings: {fill: am5.color(frm.doc.final_color)}}
+	create_force_directed_tree("directedtree",data);
 
 
+}
+function refresh_bullet1(frm){
+	var data=[{category: "",open: 0,close: 5,average: frm.doc.tasks_score}];
+	create_range_bullet_chart("bullet1",data,frm.doc.tasks_color);
+}
+function refresh_bullet2(frm){
+	var data=[{category: "",open: 0,close: 5,average: frm.doc.competence_score}];
+	create_range_bullet_chart("bullet2",data,frm.doc.competencies_color);
+}
 
-
-function refresh_chart_scores(frm){
-	console.log("refreshing");
+function refresh_gauge(frm){
 	frm.call({
 		doc:frm.doc,
 		async:false,
 		method:"get_results",
 		});
 		refresh_field("results");
+		refresh_chart_gauge(frm);
+		$("#tasks").text(frm.doc.tasks_evaluation);
+		$("#competencies").text(frm.doc.skills_evaluation);
+}
+function refresh_radial_bar(frm){
+	var data=[]
+	for (var i=0;i<frm.doc.radial_bar_data.length;i++){
+		data.push({category:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value,network:frm.doc.radial_bar_data[i].category})
+	}
+	create_sorted_bar_chart("radialbar",data,4);
+
+}
+
+
+function refresh_results(frm){
+	frm.call({
+		doc:frm.doc,
+		async:false,
+		method:"get_results",
+		});
+	refresh_field("results");
+}
+
+
+
+
+function refresh_chart_scores(frm){
+	frm.call({
+		doc:frm.doc,
+		async:false,
+		method:"get_results",
+		});
+		refresh_field("results");
+		var users=frm.doc.results.length;
+		$("#chartdiv2").height(70*(users+1));
 		set_chart_scores(frm);
+
 }
 function set_chart1(frm){
 
@@ -231,7 +319,7 @@ var chart = root.container.children.push(
   cornerRadiusTR: 10,
   cornerRadiusBL: 10,
   cornerRadiusTL: 10,
-  maxHeight: 50,
+  maxHeight: 40,
   fillOpacity: 0.8
 });
 var currentlyHovered; series.columns.template.events.on("pointerover", function(e) {
@@ -270,13 +358,13 @@ var circleTemplate = am5.Template.new({}); series.bullets.push(function(root, se
     am5.Circle.new(
       root,
       {
-        radius: 34
+        radius: 28
       },
       circleTemplate
     )
   );
   var maskCircle = bulletContainer.children.push(
-    am5.Circle.new(root, { radius: 27 })
+    am5.Circle.new(root, { radius: 25 })
   );
   var imageContainer = bulletContainer.children.push(
     am5.Container.new(root, {
@@ -300,10 +388,16 @@ var circleTemplate = am5.Template.new({}); series.bullets.push(function(root, se
 series.set("heatRules", [
   {
     dataField: "valueX",
-    min: am5.color(0xe5dc36),
-    max: am5.color(0x5faa46),
+    //min: am5.color("#ff1111"),
+    //max: am5.color(0x5faa46),
     target: series.columns.template,
-    key: "fill"
+    customFunction: function(sprite, min, max, value) {
+		for (var i=0;i<frm.doc.score_ranges.length;i++){
+			if (value <= frm.doc.score_ranges[i].to){
+				 sprite.set("fill", am5.color(frm.doc.score_ranges[i].color));break;
+			}
+		 }
+	}
   },
   {
     dataField: "valueX",

@@ -8,19 +8,38 @@
  "field_order": [
   "filters_section",
   "from_date",
+  "refresh",
   "column_break_3",
   "to_date",
   "column_break_5",
   "employee",
   "column_break_6",
   "section_break_1",
-  "refresh",
   "html_2",
   "results",
-  "scores"
+  "scores",
+  "section_break_13",
+  "gauge",
+  "column_break_14",
+  "radial_bar",
+  "score_ranges",
+  "radial_bar_data",
+  "competence_score",
+  "tasks_score",
+  "final_score",
+  "description",
+  "skills_evaluation",
+  "tasks_evaluation",
+  "tasks_color",
+  "competencies_color",
+  "section_break_27",
+  "directed_tree_settings",
+  "directed_tree",
+  "final_color"
  ],
  "fields": [
   {
+   "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
    "fieldname": "section_break_1",
    "fieldtype": "Section Break"
   },
@@ -37,10 +56,10 @@
    "options": "goals result"
   },
   {
-   "depends_on": "eval:doc.employee ==\"\" || doc.employee== null;",
+   "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
    "fieldname": "scores",
    "fieldtype": "HTML",
-   "options": "<style>\n#chartdiv2 {\n  width: 100%;\n  height: 500px;\n}\n</style>\n<div id=\"chartdiv2\"></div>"
+   "options": "<style>\n#chartdiv2,#charttest {\n  width: 100%;\n  height: 500px;\n}\n</style>\n<h2>Tasks </h2>\n<div id=\"chartdiv2\"></div>\n<div id=\"charttest\"></div>"
   },
   {
    "fieldname": "refresh",
@@ -79,13 +98,120 @@
    "fieldtype": "Link",
    "label": "Employee",
    "options": "User"
+  },
+  {
+   "fieldname": "score_ranges",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Score Ranges",
+   "options": "Score Ranges"
+  },
+  {
+   "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
+   "fieldname": "gauge",
+   "fieldtype": "HTML",
+   "label": "gauge",
+   "options": "<span style=\"font-weight: 700; font-size: 30px;\">Tasks</span>&nbsp;&nbsp;(<span id=\"tasks\"></span><span> % of final score)</span>\n<div style=\"text-align: center;\">\n<div id=\"chartdiv3\"></div>\n<div id=\"chartnumber\" style=\"font-size: 20px;\">0</div><br>\n<div id=\"bullet1\"></div>\n\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#chartdiv3 {\n  width: 100%;\n  height: 350px;\n}\n#bullet1 {\n  width: 100%;\n  height: 100px;\n}\n</style>\n"
+  },
+  {
+   "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
+   "fieldname": "radial_bar",
+   "fieldtype": "HTML",
+   "options": "<span style=\"font-weight: 700; font-size: 30px;\">Competencies</span>&nbsp;&nbsp;(<span id=\"competencies\"></span><span> % of final score)</span>\n<div style=\"text-align: center;\">\n<div id=\"radialbar\"></div>\n<div id=\"bullet2\"></div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#radialbar{\n  width: 100%;\n  height: 400px;\n}\n#bullet2{\n  width: 100%;\n  height: 100px;\n}\n\n</style>\n"
+  },
+  {
+   "fieldname": "radial_bar_data",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "radial_bar_data",
+   "options": "Radial Bar Chart"
+  },
+  {
+   "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "competence_score",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "competence score"
+  },
+  {
+   "fieldname": "tasks_score",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "tasks score"
+  },
+  {
+   "fieldname": "final_score",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "final score"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "description"
+  },
+  {
+   "fieldname": "skills_evaluation",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "skills evaluation"
+  },
+  {
+   "fieldname": "tasks_evaluation",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "tasks evaluation"
+  },
+  {
+   "fieldname": "tasks_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "tasks color"
+  },
+  {
+   "fieldname": "competencies_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "competencies color"
+  },
+  {
+   "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
+   "fieldname": "section_break_27",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
+   "fieldname": "directed_tree",
+   "fieldtype": "HTML",
+   "options": "<span style=\"font-weight: 700; font-size: 30px;\"></span>\n<div style=\"text-align: center;\">\n<div id=\"directedtree\"></div>\n\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#directedtree{\n  width: 100%;\n  height: 300px;\n}\n</style>\n"
+  },
+  {
+   "fieldname": "final_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "final color"
+  },
+  {
+   "fieldname": "directed_tree_settings",
+   "fieldtype": "Button",
+   "label": "Edit"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-07-18 10:33:30.155465",
+ "modified": "2022-07-21 11:28:50.212365",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Goals Dashboard",

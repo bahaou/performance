@@ -1,0 +1,175 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-07-21 12:19:51.973682",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "competencies",
+  "column_break_4",
+  "start_date",
+  "end_date",
+  "section_break_7",
+  "tasks",
+  "column_break_9",
+  "skills",
+  "section_break_11",
+  "remarks",
+  "amended_from",
+  "score_table",
+  "tasks_color",
+  "tasks_rate",
+  "tasks_description",
+  "skills_rate",
+  "skills_table",
+  "skills_color"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee NAme",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employee != \"\" && doc.employee!= null;",
+   "fieldname": "competencies",
+   "fieldtype": "Link",
+   "label": "Competencies",
+   "options": "Competency Assessment Form"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "competencies.start_date",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "competencies.end_date",
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "performance review",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "remarks"
+  },
+  {
+   "fieldname": "score_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "score table",
+   "options": "score table"
+  },
+  {
+   "fieldname": "tasks",
+   "fieldtype": "HTML",
+   "options": "<table id=\"tasks\" style=\"width: 100%;\">\n<tbody><tr><th>\n\n</th></tr></tbody></table>\n<span id=\"tasksdescription\" style=\"font-size: 20px;\"></span>\n<style>\ntd{text-align:center !important;}\n</style>"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "skills",
+   "fieldtype": "HTML",
+   "options": "<table id=\"skills\" style=\"width: 100%;\">\n</table>\n<span id=\"skillsdescription\" style=\"font-size: 20px;\"></span>\n<style>\ntd{text-align:center !important;}\n</style>"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tasks_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "tasks color"
+  },
+  {
+   "fieldname": "tasks_rate",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "tasks rate"
+  },
+  {
+   "fieldname": "tasks_description",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "tasks description"
+  },
+  {
+   "fetch_from": "competencies.total_score",
+   "fieldname": "skills_rate",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "skills rate"
+  },
+  {
+   "fieldname": "skills_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "skills_table",
+   "options": "Competence Form Item"
+  },
+  {
+   "fieldname": "skills_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "skills color"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-07-21 16:01:23.092831",
+ "modified_by": "Administrator",
+ "module": "Performance",
+ "name": "performance review",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
