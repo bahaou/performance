@@ -139,7 +139,10 @@ def get_data_columns(filters):
 			description=s["description"]
 			color=s["color"]
 			break
-	completed_per=(completed_tasks/total_tasks)*100
+	if total_tasks==0:
+		completed_per=100
+	else:
+		completed_per=(completed_tasks/total_tasks)*100
 	if completed_per>80:
 		per_color=settings.completed_color
 	elif completed_per >40 :

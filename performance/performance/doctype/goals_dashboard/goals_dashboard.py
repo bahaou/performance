@@ -18,13 +18,39 @@ class GoalsDashboard(Document):
 		result={}
 		settings=frappe.get_doc("Performance System Settings")
 		scores=settings.scores
+		self.score_table=[]
+		must_do={"name":"Must Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
+		should_do={"name":"Should Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
+		could_do={"name":"Could Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
+		self.must_do_color=settings.must_do_color or "#2e90e6"
+		self.should_do_color=settings.should_do_color or "#2e90e6"
+		self.could_do_color=settings.could_do_color or "#2e90e6"
+		self.completed_color=settings.completed_color or "#2e90e6"
+		self.partially_completed_color=settings.partially_completed_color  or "#2e90e6"
+		self.uncompleted_color=settings.uncompleted_color  or "#2e90e6"
 		for i in l:
 			doc=frappe.get_doc("To Do",i["name"])
 			score=get_score(settings,doc.status,doc.priority)
+			if doc.priority=="Must Do":
+				must_do["s"]+=score
+				must_do[doc.status]+=score
+			elif doc.priority=="Should Do":
+				should_do["s"]+=score
+				should_do[doc.status]+=score
+			else:
+				could_do["s"]+=score
+				could_do[doc.status]+=score
 			if doc.owner in result.keys():
 				result[doc.owner]+=score
 			else:
 				result[doc.owner]=score
+		for do in [must_do,should_do,could_do]:
+			item = self.append("score_table", {})
+			item.name1=do["name"]
+			item.completed=do["Completed"]
+			item.partially_completed=do["Partially Completed"]
+			item.uncompleted=do["Uncompleted"]
+			item.score=do["s"]
 		self.score_ranges=settings.scores
 		if not self.employee:
 			self.score_ranges[-1].to=100

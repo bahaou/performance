@@ -7,6 +7,7 @@ frappe.require("/assets/performance/js/radial_bar_chart.js")
 frappe.require("/assets/performance/js/sorted_bar_chart.js")
 frappe.require("/assets/performance/js/range_bullet_chart.js")
 frappe.require("/assets/performance/js/charts/force_directed_tree.js")
+frappe.require("/assets/performance/js/charts/reversed_value_axis.js")
 frappe.ui.form.on('Goals Dashboard', {
 	refresh: function(frm) {
 	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);}
@@ -41,11 +42,27 @@ function refresh_directed_force_tree(frm){
 		var t={name:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value};
 		competencies.push(t);
 	}
-	var must_do= {name: "Must Do",value:0,children: []};
-	var should_do= {name: "Should Do",value:0,children: []};
-	var could_do= {name: "Could Do",value:0,children: []}
+	var tasks=[]
+	for (var i = 0;i<frm.doc.score_table.length;i++){
+		var child=[]
+		if (frm.doc.score_table[i].score >0){
+			child.push({name:"Completed",value:frm.doc.score_table[i].completed,nodeSettings: {fill: am5.color(frm.doc.completed_color)}});
+			child.push({name:"P .Completed",value:frm.doc.score_table[i].partially_completed,nodeSettings: {fill: am5.color(frm.doc.partially_completed_color)}});
+			child.push({name:"Uncompleted",value:frm.doc.score_table[i].uncompleted,nodeSettings: {fill: am5.color(frm.doc.uncompleted_color)}})
+		}
+		var color="";
+		if  (frm.doc.score_table[i].name1 =="Must Do"){color=frm.doc.must_do_color;}
+		 if  (frm.doc.score_table[i].name1 =="Should Do"){color=frm.doc.should_do_color;}
+		 if  (frm.doc.score_table[i].name1 =="Could Do"){color=frm.doc.could_do_color;}
+		t={name: frm.doc.score_table[i].name1,value:frm.doc.score_table[i].score,children: child,nodeSettings: {fill: am5.color(color)}};
+		tasks.push(t);
+	}
+	//console.log(tasks)
+	//var must_do= {name: "Must Do",value:0,children: []};
+	//var should_do= {name: "Should Do",value:0,children: []};
+	//var could_do= {name: "Could Do",value:0,children: []}
 	var skills = {name: "Competencies",value:frm.doc.competence_score,children:competencies};
-	var task = {name: "Tasks",value:frm.doc.tasks_score,children: [must_do,should_do,could_do]}
+	var task = {name: "Tasks",value:frm.doc.tasks_score,children: tasks}
 	var data = {name: "Score",value:frm.doc.final_score,children: [skills,task],x:0,y:0,nodeSettings: {fill: am5.color(frm.doc.final_color)}}
 	create_force_directed_tree("directedtree",data);
 

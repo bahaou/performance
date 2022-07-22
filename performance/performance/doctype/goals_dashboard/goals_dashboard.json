@@ -14,10 +14,14 @@
   "column_break_5",
   "employee",
   "column_break_6",
+  "section_break_27",
+  "directed_tree_settings",
+  "directed_tree",
   "section_break_1",
   "html_2",
   "results",
   "scores",
+  "tasks2",
   "section_break_13",
   "gauge",
   "column_break_14",
@@ -32,10 +36,14 @@
   "tasks_evaluation",
   "tasks_color",
   "competencies_color",
-  "section_break_27",
-  "directed_tree_settings",
-  "directed_tree",
-  "final_color"
+  "final_color",
+  "score_table",
+  "could_do_color",
+  "should_do_color",
+  "must_do_color",
+  "completed_color",
+  "uncompleted_color",
+  "partially_completed_color"
  ],
  "fields": [
   {
@@ -185,9 +193,11 @@
    "label": "competencies color"
   },
   {
+   "collapsible": 1,
    "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
    "fieldname": "section_break_27",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Directed Tree Score"
   },
   {
    "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
@@ -205,13 +215,61 @@
    "fieldname": "directed_tree_settings",
    "fieldtype": "Button",
    "label": "Edit"
+  },
+  {
+   "fieldname": "score_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "score table",
+   "options": "score table"
+  },
+  {
+   "fieldname": "could_do_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "could do color"
+  },
+  {
+   "fieldname": "must_do_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "must do color"
+  },
+  {
+   "fieldname": "should_do_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "shoud do color"
+  },
+  {
+   "fieldname": "completed_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "completed color"
+  },
+  {
+   "fieldname": "uncompleted_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "uncompleted color"
+  },
+  {
+   "fieldname": "partially_completed_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "partially completed color"
+  },
+  {
+   "fieldname": "tasks2",
+   "fieldtype": "HTML",
+   "options": "<style>\n,#reversedvalueaxis {\n  width: 100%;\n  height: 500px;\n}\n</style>\n\n<div id=\"reversedvalueaxis\"></div>\ntest"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-07-21 11:28:50.212365",
+ "modified": "2022-07-22 11:18:14.913995",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Goals Dashboard",

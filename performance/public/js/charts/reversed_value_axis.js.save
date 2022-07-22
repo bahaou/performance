@@ -1,0 +1,1 @@
+function create_reversed_value_axis(id,data,yfield,xfields){
