@@ -14,7 +14,8 @@ app_license = "MIT"
 fixtures= [
 	{"dt":"Competence"},
 	{"dt":"Performance System Settings"},
-
+	{"dt":"Score Ranges"},
+	{"dt":"Competence Item"},
 ]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/performance/css/performance.css"
