@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2022-07-11 16:39:40.984651",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "competence",
+  "level",
+  "column_break_4",
+  "per_weightage",
+  "score",
+  "section_break_6",
+  "score_earned",
+  "mandatory",
+  "definition"
+ ],
+ "fields": [
+  {
+   "description": "Key Responsibility Area",
+   "fieldname": "competence",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Competence",
+   "oldfieldname": "kra",
+   "oldfieldtype": "Small Text",
+   "options": "Competence",
+   "print_width": "240px",
+   "reqd": 1,
+   "width": "240px"
+  },
+  {
+   "default": "Advanced",
+   "fieldname": "level",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Level",
+   "options": "Advanced\nIntermediate\nBasic",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "per_weightage",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weightage (%)",
+   "oldfieldname": "per_weightage",
+   "oldfieldtype": "Currency",
+   "print_width": "100px",
+   "read_only": 1,
+   "reqd": 1,
+   "width": "70px"
+  },
+  {
+   "fieldname": "score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Score (0-5)",
+   "no_copy": 1,
+   "oldfieldname": "score",
+   "oldfieldtype": "Select",
+   "print_width": "90px",
+   "width": "70px"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "score_earned",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Score Earned",
+   "no_copy": 1,
+   "oldfieldname": "score_earned",
+   "oldfieldtype": "Currency",
+   "print_width": "70px",
+   "read_only": 1,
+   "width": "70px"
+  },
+  {
+   "default": "0",
+   "fieldname": "mandatory",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "mandatory",
+   "print_hide": 1
+  },
+  {
+   "fetch_from": "competence.definition",
+   "fieldname": "definition",
+   "fieldtype": "Text",
+   "hidden": 1,
+   "label": "Definition"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-22 11:55:11.829735",
+ "modified_by": "Administrator",
+ "module": "Performance",
+ "name": "Competence Form Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
