@@ -1,4 +1,4 @@
-function create_force_directed_tree(id,data,maxLevels=5,maxNodes=10,maxValue=100){
+function create_force_directed_tree(id,data,nodesize=40,maxLevels=5,maxNodes=10,maxValue=100){
 	var root = am5.Root.new(id);
 	root.setThemes([
 	  am5themes_Animated.new(root)
@@ -16,8 +16,8 @@ function create_force_directed_tree(id,data,maxLevels=5,maxNodes=10,maxValue=100
 	  categoryField: "name",
 	  childDataField: "children",
 	  centerStrength: 0.5,
-	  minRadius: 40,
-	  maxRadius: 40,
+	  minRadius: nodesize,
+	  maxRadius:nodesize,
 	}));
 	series.circles.template.setAll({
 		 templateField: "nodeSettings"

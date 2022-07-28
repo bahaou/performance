@@ -11,7 +11,8 @@ class CompetencyAssessmentForm(Document):
 		if not self.status:
 			self.status = "Draft"
 		if not self.competencies:
-			frappe.throw(_("Goals cannot be empty"))
+			self.get_default_competencies()
+			#frappe.throw(_("Goals cannot be empty"))
 		self.validate_dates()
 
 

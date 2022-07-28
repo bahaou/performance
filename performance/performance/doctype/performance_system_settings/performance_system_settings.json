@@ -26,14 +26,21 @@
   "uncompleted_could_do",
   "compulsory_competencies_section",
   "competencies",
+  "section_break_21",
   "maximum_optional_competencies",
   "auto_create",
+  "submit_documents",
   "period",
   "starting_date",
-  "section_break_22",
+  "create",
+  "cb",
+  "last_update",
+  "section_break_29",
   "default_naming_series",
   "column_break_23",
   "default_naming_series_todo",
+  "cb2",
+  "default_naming_series_performance_review",
   "final_evaluation_ratio_section",
   "goals_evaluation",
   "column_break_17",
@@ -54,7 +61,9 @@
   "column_break_38",
   "completed_color",
   "column_break_40",
-  "cancelled_color"
+  "cancelled_color",
+  "new_date",
+  "test"
  ],
  "fields": [
   {
@@ -222,10 +231,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_22",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "calendar_view_to_do_section",
    "fieldtype": "Section Break",
    "label": "Calendar View (To Do)"
@@ -327,13 +332,65 @@
    "depends_on": "eval:doc.auto_create != \"\" && doc.auto_create != null;",
    "fieldname": "starting_date",
    "fieldtype": "Date",
-   "label": "Starting date"
+   "label": "Starting date",
+   "mandatory_depends_on": "eval:doc.auto_create != \"\" && doc.auto_create != null;"
+  },
+  {
+   "fieldname": "cb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_update",
+   "fieldtype": "Date",
+   "label": "Last Update",
+   "read_only": 1
+  },
+  {
+   "fieldname": "new_date",
+   "fieldtype": "Date",
+   "label": "new_date"
+  },
+  {
+   "fieldname": "test",
+   "fieldtype": "Data",
+   "label": "test"
+  },
+  {
+   "fieldname": "section_break_21",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.auto_create != \"\" && doc.auto_create != null;",
+   "fieldname": "create",
+   "fieldtype": "Button",
+   "label": "Create"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:doc.auto_create != \"\" && doc.auto_create != null;",
+   "fieldname": "submit_documents",
+   "fieldtype": "Check",
+   "label": "Submit documents"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "REVIEW-.YYYY.-",
+   "fieldname": "default_naming_series_performance_review",
+   "fieldtype": "Data",
+   "label": "default naming series (Performance Review)"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-07-21 12:56:20.101040",
+ "modified": "2022-07-27 17:25:22.738287",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System Settings",

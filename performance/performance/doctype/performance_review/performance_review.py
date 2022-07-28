@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-class performancereview(Document):
+class PerformanceReview(Document):
 	
 
 
@@ -18,16 +18,18 @@ class performancereview(Document):
 			return
 		tasks=frappe.db.get_list("To Do",filters=[['date', 'between', [start_date,end_date]] ,["owner","=",user],["docstatus","=",1]])
 		#frappe.msgprint(str(len(tasks)),raise_exception = False)
-		if len(tasks)==0:
+		if len(tasks)==0 and False :
 			return
 		must_do={"name":"Must Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
 		should_do={"name":"Should Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
 		could_do={"name":"Could Do","Completed":0,"Partially Completed":0,"Uncompleted":0,"s":0}
 		settings=frappe.get_doc("Performance System Settings")
+		self.naming_series=settings.default_naming_series_performance_review
 		total_score=0
 		if self.competencies:
 			com=frappe.get_doc("Competency Assessment Form",self.competencies)
 			self.skills_table=com.competencies
+			self.skills_rate=com.total_score
 		for t in tasks:
 			to_do=frappe.get_doc("To Do",t["name"])
 			score=get_score(settings,to_do.status,to_do.priority)

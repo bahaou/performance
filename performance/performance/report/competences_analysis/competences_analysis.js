@@ -1,11 +1,8 @@
 // Copyright (c) 2022, Slnee and contributors
 // For license information, please see license.txt
 /* eslint-disable */
-const style = document.createElement('style');
-style.textContent = ".summary-value{line-height:1.2 !important;}"
-document.head.appendChild(style);
 
-frappe.query_reports["Goals Analysis"] = {
+frappe.query_reports["Competences Analysis"] = {
 	"filters": [
 		{
 		fieldname: "fiscal_year",
@@ -26,9 +23,6 @@ frappe.query_reports["Goals Analysis"] = {
 					});
 				});
 			}
-
-
-
 		},
 		{
 			"fieldname": "from_date",
@@ -41,13 +35,6 @@ frappe.query_reports["Goals Analysis"] = {
 			"label": __("To Date"),
 			"fieldtype": "Date",
 			"default": frappe.defaults.get_user_default("year_end_date"),
-		},
-		{
-			"fieldname": "by_priority",
-			"label": __("By Priority"),
-			"fieldtype":"Check",
-			"default":0
 		}
-
 	]
 };

@@ -1,7 +1,7 @@
 // Copyright (c) 2022, Slnee and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('performance review', {
+frappe.ui.form.on('Performance Review', {
 	// refresh: function(frm) {
 
 	// }

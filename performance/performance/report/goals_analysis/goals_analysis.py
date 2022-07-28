@@ -8,10 +8,11 @@ def execute(filters=None):
 	columns, data = [], []
 	columns=get_columns(filters)
 	data,chart=get_data(filters)
+	#data=sorted(data,reverse=True,key=lambda d: d['total']) 
 	return columns, data,None,chart
 
 def get_columns(filters):
-	months=["January","February","March","April","May","June","July","August","September","October","November","December","Total"]
+	months=["January","February","March","April","May","June","July","August","September","October","November","December","Total","must_do","should_do","could_do"]
 	columns=[]
 	columns.append({
 			 "label": _("User"),
@@ -33,10 +34,11 @@ def get_data(filters):
 	else:
 		l=frappe.db.get_list("To Do",filters=[["docstatus","=",1]])
 	months=["January","February","March","April","May","June","July","August","September","October","November","December"]
-	dd={}
+	dd={"must_do":0,"should_do":0,"could_do":0}
 	for m in months:
 		m=m.lower()
 		dd[m]=0
+	
 	users=[]
 	data_list={}
 	settings=frappe.get_doc("Performance System Settings")
@@ -47,23 +49,38 @@ def get_data(filters):
 		if doc.owner not in users:
 			users.append(doc.owner)
 			d=dd.copy()
-			d[month]=get_score(settings,doc.status,doc.priority)
+			score=get_score(settings,doc.status,doc.priority)
+			d[month]=score
 			data_list[doc.owner]=d
+			if doc.priority=="Must Do":
+				d["must_do"]=score
+			elif doc.priority=="Should Do":
+				d["should_do"]=score
+			else:
+				d["could_do"]=score
 		else:
 			d=data_list[doc.owner]
 			d[month]+=get_score(settings,doc.status,doc.priority)
+			if doc.priority=="Must Do":
+				d["must_do"]+=score
+			elif doc.priority=="Should Do":
+				d["should_do"]+=score
+			else:
+				d["could_do"]+=score
 	data=[]
-	print(100*"9")
-	print(data_list)
 	values=[]
 	labels=[]
 	for u in users:
 		dd=data_list[u]
-		dd["total"]=sum(list(dd.values()))
+		dd["total"]=sum(list(dd.values()))-dd["should_do"]-dd["must_do"]-dd["could_do"]
 		dd["user"]=u
 		data.append(dd)
-		values.append(dd["total"])
-		labels.append(frappe.db.get_value("User",u,'full_name'))
+		#values.append(dd["total"])
+		#labels.append(frappe.db.get_value("User",u,'full_name'))
+	data=sorted(data,reverse=True,key=lambda d: d['total']) 
+	for d in data:
+		values.append(d["total"])
+		labels.append(frappe.db.get_value("User",d["user"],'full_name'))
 	chart = {'data':{'labels':labels,'datasets':[{'name':'Score','values':values}]} ,'type':'bar',"colors":["#03befc"]}
 	return data,chart
 

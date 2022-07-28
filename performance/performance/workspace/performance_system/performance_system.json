@@ -1,6 +1,13 @@
 {
  "category": "Modules",
- "charts": [],
+ "charts": [
+  {
+   "chart_name": "tasks analysis"
+  },
+  {
+   "chart_name": "Competences Analysis"
+  }
+ ],
  "creation": "2022-07-11 11:21:46.727704",
  "developer_mode_only": 0,
  "disable_user_customization": 0,
@@ -35,8 +42,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "performance review",
-   "link_to": "performance review",
+   "label": "Performance Review",
+   "link_to": "Performance Review",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -65,6 +72,15 @@
    "label": "Competency Assessment Form",
    "link_to": "Competency Assessment Form",
    "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Competencies Analysis",
+   "link_to": "Competences Analysis",
+   "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   },
@@ -138,7 +154,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-07-21 12:20:19.093047",
+ "modified": "2022-07-27 11:54:48.679605",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System",

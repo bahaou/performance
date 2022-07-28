@@ -111,10 +111,14 @@ fixtures= [
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"performance.tasks.all"
-# 	],
+scheduler_events = {
+ 	"all": [
+ 		"performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create"
+ 	],
+	"cron":{
+	"* * * * *": ["performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create"]
+}
+}
 # 	"daily": [
 # 		"performance.tasks.daily"
 # 	],

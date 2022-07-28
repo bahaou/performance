@@ -28,16 +28,31 @@ class GoalsDashboard(Document):
 		self.completed_color=settings.completed_color or "#2e90e6"
 		self.partially_completed_color=settings.partially_completed_color  or "#2e90e6"
 		self.uncompleted_color=settings.uncompleted_color  or "#2e90e6"
+		must_do_data={}
+		should_do_data={}
+		could_do_data={}
 		for i in l:
 			doc=frappe.get_doc("To Do",i["name"])
 			score=get_score(settings,doc.status,doc.priority)
 			if doc.priority=="Must Do":
+				try:
+					must_do_data[doc.owner]+=score
+				except:
+					 must_do_data[doc.owner]=score
 				must_do["s"]+=score
 				must_do[doc.status]+=score
 			elif doc.priority=="Should Do":
+				try:
+					should_do_data[doc.owner]+=score
+				except:
+					should_do_data[doc.owner]=score
 				should_do["s"]+=score
 				should_do[doc.status]+=score
 			else:
+				try:
+					could_do_data[doc.owner]+=score
+				except:
+					could_do_data[doc.owner]=score
 				could_do["s"]+=score
 				could_do[doc.status]+=score
 			if doc.owner in result.keys():
@@ -51,6 +66,10 @@ class GoalsDashboard(Document):
 			item.partially_completed=do["Partially Completed"]
 			item.uncompleted=do["Uncompleted"]
 			item.score=do["s"]
+		#for d in must_do_data:
+		#	item = self.append("must_do_data", {})
+		#	item.user=d
+		#	item.value=must_do_data[d]
 		self.score_ranges=settings.scores
 		if not self.employee:
 			self.score_ranges[-1].to=100
@@ -80,6 +99,18 @@ class GoalsDashboard(Document):
 			item.image=frappe.db.get_value("User",u,"user_image") or "/files/user.jpg"
 			item.score=v
 			rating,item.description,item.color=get_description(scores,v)
+			try:
+				item.must_do=must_do_data[u]
+			except:
+				item.must_do=0
+			try:
+				item.should_do=should_do_data[u]
+			except:
+				item.should_do=0
+			try:
+				item.could_do=could_do_data[u]
+			except:
+				item.could_do=0
 		if values2==[] and self.employee:
 			item = self.append("results", {})
 			item.user=frappe.db.get_value("User",self.employee,"full_name")
@@ -108,6 +139,7 @@ class GoalsDashboard(Document):
 						item = self.append("radial_bar_data", {})
 						item.category=c.competence
 						item.value=c.score
+						item.color=frappe.db.get_value("Competence",c.competence,"color") or "#317cde"
 			skills=float(settings.skills_evaluation)
 			goals=float(settings.goals_evaluation)
 			self.final_score=(float(self.tasks_score)*goals+float(self.competence_score)*skills)/100

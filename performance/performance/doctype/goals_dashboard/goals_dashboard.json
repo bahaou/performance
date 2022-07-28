@@ -21,6 +21,7 @@
   "html_2",
   "results",
   "scores",
+  "edit",
   "tasks2",
   "section_break_13",
   "gauge",
@@ -43,13 +44,19 @@
   "must_do_color",
   "completed_color",
   "uncompleted_color",
-  "partially_completed_color"
+  "partially_completed_color",
+  "node_size",
+  "show_total",
+  "performances_section",
+  "performance_settings"
  ],
  "fields": [
   {
+   "collapsible": 1,
    "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
    "fieldname": "section_break_1",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Tasks"
   },
   {
    "fieldname": "html_2",
@@ -67,7 +74,7 @@
    "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
    "fieldname": "scores",
    "fieldtype": "HTML",
-   "options": "<style>\n#chartdiv2,#charttest {\n  width: 100%;\n  height: 500px;\n}\n</style>\n<h2>Tasks </h2>\n<div id=\"chartdiv2\"></div>\n<div id=\"charttest\"></div>"
+   "options": "<style>\n#chartdiv2,#charttest {\n  width: 100%;\n  height: 500px;\n}\n</style>\n\n<div id=\"chartdiv2\"></div>\n"
   },
   {
    "fieldname": "refresh",
@@ -140,6 +147,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "collapsible": 1,
    "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
    "fieldname": "section_break_13",
    "fieldtype": "Section Break"
@@ -262,14 +270,45 @@
   {
    "fieldname": "tasks2",
    "fieldtype": "HTML",
-   "options": "<style>\n,#reversedvalueaxis {\n  width: 100%;\n  height: 500px;\n}\n</style>\n\n<div id=\"reversedvalueaxis\"></div>\ntest"
+   "options": "<style>\n#reversedvalueaxis {\n  width: 107%;\nmin-width:200px !important;\n  height: 500px;\n}\n</style>\n\n<div id=\"reversedvalueaxis\"></div>\n"
+  },
+  {
+   "default": "40",
+   "fieldname": "node_size",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "node size"
+  },
+  {
+   "fieldname": "edit",
+   "fieldtype": "Button",
+   "label": "..."
+  },
+  {
+   "default": "1",
+   "fieldname": "show_total",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "show total"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
+   "fieldname": "performances_section",
+   "fieldtype": "Section Break",
+   "label": "Performances"
+  },
+  {
+   "fieldname": "performance_settings",
+   "fieldtype": "Button",
+   "label": "..."
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-07-22 11:18:14.913995",
+ "modified": "2022-07-26 17:25:59.998878",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Goals Dashboard",

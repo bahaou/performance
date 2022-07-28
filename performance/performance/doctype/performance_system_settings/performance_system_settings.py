@@ -44,3 +44,56 @@ class PerformanceSystemSettings(Document):
 def change_color_for(status,color):
 	frappe.db.sql("update `tabTo Do` set color ='{}' where status ='{}'".format(color,status))
 	frappe.db.commit()
+
+
+@frappe.whitelist()
+def auto_create(test=None):
+	print(100*"5")
+	settings =frappe.get_doc("Performance System Settings")
+	if not settings.auto_create:
+		return
+	last_date = settings.last_update or settings.starting_date
+	from datetime import datetime
+	today=datetime.today()
+	months=0
+	if settings.period=="Monthly":
+		months=1
+	elif settings.period=="Quarterly":
+		months=3
+	elif settings.period=="Half Yearly":
+		months=6
+	else:
+		months=12
+	new_date = frappe.utils.add_to_date(date=last_date,months=months)
+	days_diff= frappe.utils.date_diff(today,new_date)
+	submit = settings.submit_documents or False
+	#if days_diff !=0 and not test:
+	#	return
+	employees = frappe.db.get_list("Employee",filters={"status":"active"})
+	for e in employees:
+		doc = frappe.new_doc('Competency Assessment Form')
+		doc.employee=e["name"]
+		doc.start_date=today
+		doc.end_date=frappe.utils.add_to_date(date=today,months=months)
+		doc.total_score=0
+		doc.naming_series=settings.default_naming_series
+		doc.insert()
+		if submit:
+			doc.submit()
+		doc2 = frappe.new_doc('Performance Review')
+		doc2.employee=e["name"]
+		doc2.competencies=doc.name
+		doc2.naming_series=settings.default_naming_series_performance_review
+		doc2.insert()
+		if submit:
+			doc2.submit()
+	frappe.db.commit()
+	return "1"
+
+@frappe.whitelist()
+def delete_all(p=None,a=None):
+	if p:
+		frappe.db.delete("Performance Review")
+	if a:
+		frappe.db.delete("Competency Assessment Form")
+	frappe.db.commit()

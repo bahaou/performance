@@ -7,39 +7,76 @@ frappe.require("/assets/performance/js/radial_bar_chart.js")
 frappe.require("/assets/performance/js/sorted_bar_chart.js")
 frappe.require("/assets/performance/js/range_bullet_chart.js")
 frappe.require("/assets/performance/js/charts/force_directed_tree.js")
-frappe.require("/assets/performance/js/charts/reversed_value_axis.js")
+//frappe.require("/assets/performance/js/charts/line_chart.js")
 frappe.ui.form.on('Goals Dashboard', {
 	refresh: function(frm) {
-	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);}
-				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);}},
+	frappe.require("/assets/performance/js/charts/line_chart.js")
+	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);cur_frm.fields_dict['section_break_1'].collapse();}
+	else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);} ;
+	cur_frm.fields_dict['section_break_27'].collapse();},
 	employee : function(frm){
-	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);}
-				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);}
+	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);
+		cur_frm.fields_dict['section_break_1'].collapse();
+}
+				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);
+				cur_frm.fields_dict['section_break_27'].collapse();
+}
 	},
 	directed_tree_settings :function(frm){
+		console.log("edit");
 		let d = new frappe.ui.Dialog({
 			 title: 'Directed Tree Settings',
 			 fields: [
 				{
 				 label: 'Node Size',
 				 fieldname: "node_size",
-				 fieldtype: "select",
-				 options: [30,40,50,60,70]}
+				 fieldtype: "Select",
+				 options: [30,40,50,60,70],
+				default:frm.doc.node_size },
+				{fieldname:"cb1",fieldtype:"Column Break"},
 			],
-			primary_action_label: 'Save',
+			primary_action_label: 'Apply',
 			primary_action(values) {
-				
+				d.hide();
+				frm.set_value("node_size",values["node_size"]);
+				 frm.refresh();
 			}
 		});
 		d.show();
 
-	}
-})
+	},
+	edit : function(frm){
+		let d = new frappe.ui.Dialog({
+			title: "Line Chart Settings",
+			fields:[
+				{label:'Show Total',fieldname:"show_total",fieldtype:"Check",default:frm.doc.show_total}
+			],
+			primary_action_label: 'Apply',
+			primary_action(values) {
+				d.hide();
+				frm.set_value("show_total",values["show_total"]);
+				frm.refresh();
+			}
+		});
+		d.show();}
+});
+function refresh_line_chart(frm){
+	var yfields=[{"label":"Must Do","fieldname":"must_do","color":frm.doc.must_do_color},
+		{"label":"Should Do","fieldname":"should_do","color":frm.doc.should_do_color},
+		{"label":"Could Do","fieldname":"could_do","color":frm.doc.could_do_color}]
+	if (frm.doc.show_total == 1 ) {
 
-function refresh_directed_force_tree(frm){
+		yfields.splice(0,0,{"label":"Total Score","fieldname":"score","color":"#ab6598"})}
+	var xfield="user";
+	var data=frm.doc.results;
+	console.log(data);
+	create_line_chart("reversedvalueaxis",data,xfield,yfields);
+
+}
+function refresh_directed_force_tree(frm,size=40){
 	var competencies=[];
 	for (var i =0; i <frm.doc.radial_bar_data.length;i++){
-		var t={name:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value};
+		var t={name:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value,nodeSettings: {fill: am5.color(frm.doc.radial_bar_data[i].color)}};
 		competencies.push(t);
 	}
 	var tasks=[]
@@ -64,7 +101,8 @@ function refresh_directed_force_tree(frm){
 	var skills = {name: "Competencies",value:frm.doc.competence_score,children:competencies};
 	var task = {name: "Tasks",value:frm.doc.tasks_score,children: tasks}
 	var data = {name: "Score",value:frm.doc.final_score,children: [skills,task],x:0,y:0,nodeSettings: {fill: am5.color(frm.doc.final_color)}}
-	create_force_directed_tree("directedtree",data);
+	if ( frm.doc.node_size == null || frm.doc.node_size ==""){frm.set_value("node_size",40)};
+	create_force_directed_tree("directedtree",data,frm.doc.node_size,5,10,100);
 
 
 }

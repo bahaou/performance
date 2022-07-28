@@ -10,7 +10,10 @@
   "score",
   "image",
   "description",
-  "color"
+  "color",
+  "must_do",
+  "should_do",
+  "could_do"
  ],
  "fields": [
   {
@@ -39,12 +42,30 @@
    "fieldname": "color",
    "fieldtype": "Data",
    "label": "color"
+  },
+  {
+   "default": "0",
+   "fieldname": "must_do",
+   "fieldtype": "Data",
+   "label": "must do"
+  },
+  {
+   "default": "0",
+   "fieldname": "should_do",
+   "fieldtype": "Data",
+   "label": "should do"
+  },
+  {
+   "default": "0",
+   "fieldname": "could_do",
+   "fieldtype": "Data",
+   "label": "could do"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-07-18 12:06:11.415235",
+ "modified": "2022-07-26 15:08:49.128149",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "goals result",

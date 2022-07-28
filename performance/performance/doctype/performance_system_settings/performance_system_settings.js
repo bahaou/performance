@@ -2,10 +2,37 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Performance System Settings', {
-	// refresh: function(frm) {
-
-	// }
-
+	refresh: function(frm) {
+		 frm.add_custom_button(__("Delete All"), function() {
+			let d = new frappe.ui.Dialog({
+				title: 'Delete All data',
+				fields:[],
+				primary_action_label: 'Delete',
+				 primary_action(values) {
+			frm.call({
+				args:{"p":1,"a":1},
+				method:"performance.performance.doctype.performance_system_settings.performance_system_settings.delete_all"
+			})
+				d.hide();
+				frappe.show_alert({
+					 message:__('Performance Data Deleted !'),
+					indicator:'green'
+				}, 5);}
+			});
+		d.show();
+		})},
+	create : function(frm) {
+		frm.call({
+			args:{"test":1},
+			method:"performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create",
+		callback: function(r){ if (r.message=="1") {
+		
+		frappe.show_alert({
+			message:__('Test data has been created !'),indicator:'green'
+			},5);
+		}
+}});
+	},
 	skills_evaluation : function(frm){
 		if (frm.doc.skills_evaluation <= 100 && frm.doc.skills_evaluation >=0) {
 			frm.set_value("goals_evaluation",100-frm.doc.skills_evaluation);refresh_field("goals_evaluation");

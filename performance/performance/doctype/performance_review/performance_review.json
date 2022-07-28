@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "naming_series:",
  "creation": "2022-07-21 12:19:51.973682",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -18,14 +19,15 @@
   "skills",
   "section_break_11",
   "remarks",
-  "amended_from",
   "score_table",
   "tasks_color",
   "tasks_rate",
   "tasks_description",
   "skills_rate",
   "skills_table",
-  "skills_color"
+  "skills_color",
+  "amended_from",
+  "naming_series"
  ],
  "fields": [
   {
@@ -38,6 +40,7 @@
    "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Employee NAme",
    "read_only": 1
   },
@@ -64,15 +67,6 @@
    "fieldname": "end_date",
    "fieldtype": "Date",
    "label": "End Date",
-   "read_only": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "performance review",
-   "print_hide": 1,
    "read_only": 1
   },
   {
@@ -146,15 +140,31 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "skills color"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Performance Review",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "REVIEW-.YYYY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-21 16:01:23.092831",
+ "modified": "2022-07-27 13:20:30.026824",
  "modified_by": "Administrator",
  "module": "Performance",
- "name": "performance review",
+ "name": "Performance Review",
  "owner": "Administrator",
  "permissions": [
   {
