@@ -35,6 +35,18 @@ frappe.query_reports["Competences Analysis"] = {
 			"label": __("To Date"),
 			"fieldtype": "Date",
 			"default": frappe.defaults.get_user_default("year_end_date"),
+		},
+		{
+			"fieldname" : "department",
+			"label":__("Department"),
+			"fieldtype":"Link",
+			"options":"Department"
+		},
+		{
+			"fieldname":"designation",
+			"label":__("Designation"),
+			"fieldtype":"Link",
+			"options":"Designation"
 		}
 	]
 };

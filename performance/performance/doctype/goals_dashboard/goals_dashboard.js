@@ -9,18 +9,28 @@ frappe.require("/assets/performance/js/range_bullet_chart.js")
 frappe.require("/assets/performance/js/charts/force_directed_tree.js")
 //frappe.require("/assets/performance/js/charts/line_chart.js")
 frappe.ui.form.on('Goals Dashboard', {
+	onload: function(frm){
+		frm.call({
+			doc:frm.doc,
+			async:false,
+			method:"set_dates"})
+			if (frm.doc.language=="right"){  $(".btn").addClass("right");}
+			else { $(".btn").removeClass("right")}
+
+	},
+	from_date : function(frm){frm.refresh()},to_date : function(frm){frm.refresh()},department:function(frm){frm.refresh()},designation:function(frm){frm.refresh()},
 	refresh: function(frm) {
 	frappe.require("/assets/performance/js/charts/line_chart.js")
 	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);cur_frm.fields_dict['section_break_1'].collapse();}
 	else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);} ;
-	cur_frm.fields_dict['section_break_27'].collapse();},
+	cur_frm.fields_dict['section_break_27'].collapse();$("#directedtree").height(frm.doc.node_size*6);},
 	employee : function(frm){
 	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);
 		cur_frm.fields_dict['section_break_1'].collapse();
 }
 				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);
 				cur_frm.fields_dict['section_break_27'].collapse();
-}
+}$("#directedtree").height(frm.doc.node_size*6);
 	},
 	directed_tree_settings :function(frm){
 		console.log("edit");
@@ -31,7 +41,7 @@ frappe.ui.form.on('Goals Dashboard', {
 				 label: 'Node Size',
 				 fieldname: "node_size",
 				 fieldtype: "Select",
-				 options: [30,40,50,60,70],
+				 options: [30,40,50,60,70,80,90,100,110,120],
 				default:frm.doc.node_size },
 				{fieldname:"cb1",fieldtype:"Column Break"},
 			],
@@ -39,7 +49,9 @@ frappe.ui.form.on('Goals Dashboard', {
 			primary_action(values) {
 				d.hide();
 				frm.set_value("node_size",values["node_size"]);
-				 frm.refresh();
+				frm.refresh()
+				$("#directedtree").height(frm.doc.node_size*6);
+				 
 			}
 		});
 		d.show();
@@ -61,9 +73,9 @@ frappe.ui.form.on('Goals Dashboard', {
 		d.show();}
 });
 function refresh_line_chart(frm){
-	var yfields=[{"label":"Must Do","fieldname":"must_do","color":frm.doc.must_do_color},
-		{"label":"Should Do","fieldname":"should_do","color":frm.doc.should_do_color},
-		{"label":"Could Do","fieldname":"could_do","color":frm.doc.could_do_color}]
+	var yfields=[{"label":__("Must Do"),"fieldname":"must_do","color":frm.doc.must_do_color},
+		{"label":__("Should Do"),"fieldname":"should_do","color":frm.doc.should_do_color},
+		{"label":__("Could Do"),"fieldname":"could_do","color":frm.doc.could_do_color}]
 	if (frm.doc.show_total == 1 ) {
 
 		yfields.splice(0,0,{"label":"Total Score","fieldname":"score","color":"#ab6598"})}

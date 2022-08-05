@@ -2,9 +2,9 @@
 // For license information, please see license.txt
 /* eslint-disable */
 const style = document.createElement('style');
-style.textContent = ".summary-value{line-height:1.2 !important;}"
+style.textContent = ".summary-value{line-height:1.2 !important;}.dt-cell__content--header-2{}"
 document.head.appendChild(style);
-
+console.log("test");
 frappe.query_reports["Goals Analysis"] = {
 	"filters": [
 		{
@@ -46,8 +46,9 @@ frappe.query_reports["Goals Analysis"] = {
 			"fieldname": "by_priority",
 			"label": __("By Priority"),
 			"fieldtype":"Check",
-			"default":0
+			"default":0,
 		}
 
 	]
 };
+

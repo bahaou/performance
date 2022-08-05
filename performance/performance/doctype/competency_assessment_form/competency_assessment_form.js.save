@@ -10,10 +10,10 @@ frappe.ui.form.on('Competency Assessment Form', {
 	},
 	refresh : function(frm) {
 		if (frm.doc.name.includes("new-competency-assessment-form")){
-		//frm.set_value("start_date",frappe.defaults.get_user_default("year_start_date"))
-		//frm.set_value("end_date",frappe.defaults.get_user_default("year_end_date"))
-		//refresh_field("start_date");
-		//refresh_field("end_date");
+		frm.set_value("start_date",frappe.defaults.get_user_default("year_start_date"))
+		frm.set_value("end_date",frappe.defaults.get_user_default("year_end_date"))
+		refresh_field("start_date");
+		refresh_field("end_date");
 		frm.clear_table("competencies");
 		frm.call({
 			doc:frm.doc,
@@ -23,14 +23,7 @@ frappe.ui.form.on('Competency Assessment Form', {
 		});
 		refresh_field("competencies");}
 		check_number(frm);
-		if (frm.doc.docstatus==1 && (frm.doc.performance_preview == "" || frm.doc.performance_review== null ) ){
-			frm.add_custom_button(__('Performance Review'),function(){
-				frappe.model.open_mapped_doc({
-					method:"performance.performance.doctype.competency_assessment_form.competency_assessment_form.create_performance_review",
-					frm:frm
-				})
-			},__("Create"));
-		}
+		
 	 },
 	calculate_total: function(frm) {
 		let competencies = frm.doc.competencies || [];

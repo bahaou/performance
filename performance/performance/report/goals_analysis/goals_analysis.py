@@ -12,20 +12,31 @@ def execute(filters=None):
 	return columns, data,None,chart
 
 def get_columns(filters):
-	months=["January","February","March","April","May","June","July","August","September","October","November","December","Total","must_do","should_do","could_do"]
+	months=["January","February","March","April","May","June","July","August","September","October","November","December","Total"]
+	priorities=["Must do","Should do","Could do","Total"]
 	columns=[]
 	columns.append({
 			 "label": _("User"),
 			"fieldname":"user",
 			"type":"link",
 			"option":"User",
-			"width":120} )
-	for m in months:
+			"width":120,
+			"color":"red"} )
+	if "by_priority" in filters.keys() and filters["by_priority"]:
+		do=priorities
+		width=150
+	else:
+		do=months
+		width=80
+	for m in do:
+		n=m
+		if m =="Must Do":
+			n="<span id='must_do'>"+m+"</span>"
 		columns.append({
-			"label": _(m),
-			"fieldname": m.lower(),
+			"label": _(n),
+			"fieldname": m.lower().replace(" ","_"),
 			"type":"data",
-			"width": 80})
+			"width": width})
 	return columns
 
 def get_data(filters):
@@ -34,7 +45,7 @@ def get_data(filters):
 	else:
 		l=frappe.db.get_list("To Do",filters=[["docstatus","=",1]])
 	months=["January","February","March","April","May","June","July","August","September","October","November","December"]
-	dd={"must_do":0,"should_do":0,"could_do":0}
+	dd={"must_do":0,"should_do":0,"could_do":0,"total":0}
 	for m in months:
 		m=m.lower()
 		dd[m]=0
@@ -51,16 +62,19 @@ def get_data(filters):
 			d=dd.copy()
 			score=get_score(settings,doc.status,doc.priority)
 			d[month]=score
+			d["total"]+=score
 			data_list[doc.owner]=d
 			if doc.priority=="Must Do":
-				d["must_do"]=score
+				d["must_do"]+=score
 			elif doc.priority=="Should Do":
-				d["should_do"]=score
+				d["should_do"]+=score
 			else:
-				d["could_do"]=score
+				d["could_do"]+=score
 		else:
 			d=data_list[doc.owner]
-			d[month]+=get_score(settings,doc.status,doc.priority)
+			score=get_score(settings,doc.status,doc.priority)
+			d[month]+=score
+			d["total"]+=score
 			if doc.priority=="Must Do":
 				d["must_do"]+=score
 			elif doc.priority=="Should Do":
@@ -69,10 +83,13 @@ def get_data(filters):
 				d["could_do"]+=score
 	data=[]
 	values=[]
+	must_do=[]
+	should_do=[]
+	could_do=[]
 	labels=[]
 	for u in users:
 		dd=data_list[u]
-		dd["total"]=sum(list(dd.values()))-dd["should_do"]-dd["must_do"]-dd["could_do"]
+		#dd["total"]=sum(list(dd.values()))-dd["should_do"]-dd["must_do"]-dd["could_do"]
 		dd["user"]=u
 		data.append(dd)
 		#values.append(dd["total"])
@@ -80,8 +97,16 @@ def get_data(filters):
 	data=sorted(data,reverse=True,key=lambda d: d['total']) 
 	for d in data:
 		values.append(d["total"])
+		must_do.append(d["must_do"])
+		should_do.append(d["should_do"])
+		could_do.append(d["could_do"])
 		labels.append(frappe.db.get_value("User",d["user"],'full_name'))
-	chart = {'data':{'labels':labels,'datasets':[{'name':'Score','values':values}]} ,'type':'bar',"colors":["#03befc"]}
+	datasets=[{'name':'Must Do','values':must_do},{'name':'Should Do','values':should_do},{'name':'Could Do','values':could_do},{'name':'Total','values':values}]
+	colors=[settings.must_do_color,settings.should_do_color,settings.could_do_color,"#03befc"]
+	if not ( "by_priority" in filters.keys() and filters["by_priority"] ) :
+		datasets=datasets[3::]
+		colors=colors[3::]
+	chart ={'data':{'labels':labels,'datasets':datasets} ,'type':'bar',"colors":colors}
 	return data,chart
 
 def get_score(settings,status,priority):

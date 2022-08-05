@@ -34,6 +34,10 @@
   "starting_date",
   "create",
   "cb",
+  "default_scores",
+  "create_review",
+  "delete_review",
+  "cancel_review_on_cancellation_of_competence",
   "last_update",
   "section_break_29",
   "default_naming_series",
@@ -111,12 +115,12 @@
   {
    "fieldname": "completed_must_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: green;\">Completed </span><b>Must Do</b>"
+   "label": "Completed Must Do"
   },
   {
    "fieldname": "partially_completed_must_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Must Do</b>"
+   "label": "Partially Completed Must Do"
   },
   {
    "fieldname": "column_break_7",
@@ -125,17 +129,17 @@
   {
    "fieldname": "completed_should_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: green;\">Completed </span><b>Should Do</b>"
+   "label": "Completed Should Do"
   },
   {
    "fieldname": "partially_completed_should_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Should Do</b>"
+   "label": "Partially Completed Should Do"
   },
   {
    "fieldname": "uncompleted_should_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: red;\">Uncompleted</span> <b>Should Do</b>"
+   "label": "Uncompleted Should Do"
   },
   {
    "fieldname": "column_break_8",
@@ -144,17 +148,17 @@
   {
    "fieldname": "completed_could_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: green;\">Completed</span> <b>Could Do</b>"
+   "label": "Completed Could Do"
   },
   {
    "fieldname": "partially_completed_could_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: orange;\">Partially Completed</span> <b>Could Do</b>"
+   "label": "Partially Completed Could Do"
   },
   {
    "fieldname": "uncompleted_could_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: red;\">Uncompleted </span> <b>Could Do</b>"
+   "label": "Uncompleted Could Do"
   },
   {
    "fieldname": "compulsory_competencies_section",
@@ -164,7 +168,7 @@
   {
    "fieldname": "competencies",
    "fieldtype": "Table",
-   "label": "Competenciess",
+   "label": "Competencies",
    "options": "Competence Item"
   },
   {
@@ -310,11 +314,11 @@
   {
    "fieldname": "uncompleted_must_do",
    "fieldtype": "Int",
-   "label": "<span style=\"color: red;\">Uncompleted</span> <b>Must Do</b>"
+   "label": "Uncompleted Must Do"
   },
   {
    "default": "1",
-   "description": "Automatically create an assessment form for all employees with mandatory competencies setting all scores to 0.",
+   "description": "Automatically create an assessment form for all employees with mandatory competencies setting all scores to default.",
    "fieldname": "auto_create",
    "fieldtype": "Check",
    "label": "Auto Create Competency Assessment Form"
@@ -342,17 +346,18 @@
   {
    "fieldname": "last_update",
    "fieldtype": "Date",
-   "label": "Last Update",
-   "read_only": 1
+   "label": "Last Update"
   },
   {
    "fieldname": "new_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "new_date"
   },
   {
    "fieldname": "test",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "test"
   },
   {
@@ -385,12 +390,39 @@
    "fieldname": "default_naming_series_performance_review",
    "fieldtype": "Data",
    "label": "default naming series (Performance Review)"
+  },
+  {
+   "default": "Minimum",
+   "fieldname": "default_scores",
+   "fieldtype": "Select",
+   "label": "Default Competency Scoring",
+   "options": "LIFO\nAverage\nMinimum\nMaximum"
+  },
+  {
+   "default": "1",
+   "fieldname": "cancel_review_on_cancellation_of_competence",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Cancel Review on cancellation of competence"
+  },
+  {
+   "default": "1",
+   "fieldname": "create_review",
+   "fieldtype": "Check",
+   "label": "Auto Create review on competence creation"
+  },
+  {
+   "default": "1",
+   "fieldname": "delete_review",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Auto Delete review on competence  deletion"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-07-27 17:25:22.738287",
+ "modified": "2022-08-04 16:14:27.512052",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System Settings",

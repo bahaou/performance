@@ -2,19 +2,53 @@
 # For license information, please see license.txt
 
 import frappe
-
+from frappe import _
 from frappe.model.document import Document
 
 class GoalsDashboard(Document):
-	
-
 
 	@frappe.whitelist()
-	def get_results(self):
-		if self.employee:
-			l=frappe.db.get_list("To Do",filters=[["docstatus","=",1],["owner","=",self.employee]])
+	def set_dates(self):
+		settings=frappe.get_doc("Performance System Settings")
+		self.from_date=settings.last_update or settings.starting_date or frappe.utils.get_date()
+		p=settings.period
+		if p =="Monthly":
+			months=1
+		elif p=="Yearly":
+			months=12
+		elif p=="Half Yearly":
+			months=6
 		else:
-			l=frappe.db.get_list("To Do",filters=[["docstatus","=",1]])
+			months=3
+		self.to_date=frappe.utils.add_to_date(date=self.from_date,days=-1,months=months)
+		language=frappe.db.get_value("User",frappe.session["user"],"language")
+		if "ar" in language:
+			self.language="right"
+		else:
+			self.language="left"
+	@frappe.whitelist()
+	def get_results(self):
+		filter=[["docstatus","=",1]]
+		if self.from_date and  self.to_date :
+			if self.from_date > self.to_date:
+				frappe.throw(_("from date can not be less than to date"))
+			filter.append([  'date', 'between', [self.from_date, self.to_date]])
+		if self.employee:
+			emp=frappe.get_doc("Employee",self.employee)
+			user=emp.user_id
+			filter.append(["owner","=",user])
+		else:
+			f={}
+			if self.department:
+				f["department"]=self.department
+			if self.designation:
+				f["designation"]=self.designation
+			emp_list=frappe.db.get_list("Employee",filters=f,fields=["user_id"])
+			users=[e["user_id"] for e in emp_list]
+			users=[u for u in users if u !=""]
+			if len(users)!=0:
+				filter.append(["owner",'in',users])
+		l=frappe.db.get_list("To Do",filters=filter)
 		result={}
 		settings=frappe.get_doc("Performance System Settings")
 		scores=settings.scores
@@ -126,9 +160,9 @@ class GoalsDashboard(Document):
 				#frappe.show_alert('Hi, you have a new message', 5);
 				self.score_ranges[-1].to=float(values2[0]+1)
 			self.tasks_score=rating
-			employee=frappe.db.get_list("Employee",filters={"user_id":self.employee})
-			if len(employee)>0:
-				employee=employee[0]["name"]
+			#employee=frappe.db.get_list("Employee",filters={"user_id":self.employee})
+			if 1>0:
+				employee=self.employee
 				competences=frappe.db.get_list("Competency Assessment Form",filters={"employee":employee,"docstatus":1})
 				self.competence_score=0
 				if len(competences)>0:

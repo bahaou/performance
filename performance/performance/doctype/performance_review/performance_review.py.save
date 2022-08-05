@@ -7,11 +7,8 @@ class PerformanceReview(Document):
 	def after_insert(self):
 		#frappe.throw("aa")
 		if self.competencies  :
-			#frappe.throw(self.competencies+self.name)
+			#.1frappe.throw("b")
 			frappe.db.set_value("Competency Assessment Form",self.competencies,"performance_review",self.name,update_modified=False)
-			#doc=frappe.get_doc("Competency Assessment Form",self.competencies)
-			#doc.performance_review=self.name
-			#doc.save()
 			frappe.db.commit()
 
 

@@ -11,6 +11,7 @@
   "employee_name",
   "column_break_3",
   "status",
+  "period",
   "start_date",
   "end_date",
   "section_break1",
@@ -18,7 +19,8 @@
   "maximum_optional_competencies",
   "total_score",
   "naming_series",
-  "amended_from"
+  "amended_from",
+  "performance_review"
  ],
  "fields": [
   {
@@ -50,15 +52,19 @@
    "read_only": 1
   },
   {
+   "fetch_from": "period.from_date",
    "fieldname": "start_date",
    "fieldtype": "Date",
    "label": "Start Date",
+   "read_only": 1,
    "reqd": 1
   },
   {
+   "fetch_from": "period.to_date",
    "fieldname": "end_date",
    "fieldtype": "Date",
    "label": "End Date",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -105,18 +111,32 @@
    "options": "Competency Assessment Form",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "performance_review",
+   "fieldtype": "Data",
+   "label": "performance review"
+  },
+  {
+   "fieldname": "period",
+   "fieldtype": "Link",
+   "label": "Period",
+   "options": "Performance Period",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-27 13:36:23.014130",
+ "modified": "2022-08-05 12:13:43.976893",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Competency Assessment Form",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -126,6 +146,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

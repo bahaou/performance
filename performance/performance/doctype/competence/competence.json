@@ -45,7 +45,8 @@
    "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Definition",
-   "reqd": 1
+   "reqd": 1,
+   "translatable": 1
   },
   {
    "fieldname": "column_break_3",
@@ -54,7 +55,8 @@
   {
    "fieldname": "importance",
    "fieldtype": "Small Text",
-   "label": "Importance"
+   "label": "Importance",
+   "translatable": 1
   },
   {
    "fieldname": "company",
@@ -70,38 +72,44 @@
   {
    "fieldname": "level_a",
    "fieldtype": "Data",
-   "label": "Level A (Advanced)"
+   "label": "Level A (Advanced)",
+   "translatable": 1
   },
   {
    "fieldname": "level_b",
    "fieldtype": "Data",
-   "label": "Level B (Intermediate)"
+   "label": "Level B (Intermediate)",
+   "translatable": 1
   },
   {
    "fieldname": "level_c",
    "fieldtype": "Data",
-   "label": "Level C (Basic)"
+   "label": "Level C (Basic)",
+   "translatable": 1
   },
   {
    "depends_on": "eval:doc.level_a !=null && doc.level_a !=\"\";",
    "fieldname": "description_a",
    "fieldtype": "Small Text",
    "label": "Description",
-   "mandatory_depends_on": "eval:doc.level_a !=null && doc.level_a !=\"\";"
+   "mandatory_depends_on": "eval:doc.level_a !=null && doc.level_a !=\"\";",
+   "translatable": 1
   },
   {
    "depends_on": "eval:doc.level_b !=null && doc.level_b != \"\";",
    "fieldname": "description_b",
    "fieldtype": "Small Text",
    "label": "Description",
-   "mandatory_depends_on": "eval:doc.level_b !=null && doc.level_b != \"\";"
+   "mandatory_depends_on": "eval:doc.level_b !=null && doc.level_b != \"\";",
+   "translatable": 1
   },
   {
    "depends_on": "eval:doc.level_c !=null && doc.level_c != \"\";",
    "fieldname": "description_c",
    "fieldtype": "Small Text",
    "label": "Description",
-   "mandatory_depends_on": "eval:doc.level_c !=null && doc.level_c != \"\";"
+   "mandatory_depends_on": "eval:doc.level_c !=null && doc.level_c != \"\";",
+   "translatable": 1
   },
   {
    "fieldname": "column_break_9",
@@ -119,7 +127,8 @@
    "fieldname": "warning_signs",
    "fieldtype": "Text",
    "label": "Warning Signs",
-   "reqd": 1
+   "reqd": 1,
+   "translatable": 1
   },
   {
    "fieldname": "column_break_17",
@@ -129,7 +138,8 @@
    "fieldname": "positive_indicators",
    "fieldtype": "Text",
    "label": "Positive Indicators",
-   "reqd": 1
+   "reqd": 1,
+   "translatable": 1
   },
   {
    "fieldname": "section_break_2",
@@ -152,7 +162,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-07-22 14:06:46.967824",
+ "modified": "2022-08-04 15:33:50.984249",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Competence",

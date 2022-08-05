@@ -5,9 +5,9 @@ frappe.ui.form.on('Performance System Settings', {
 	refresh: function(frm) {
 		 frm.add_custom_button(__("Delete All"), function() {
 			let d = new frappe.ui.Dialog({
-				title: __('Delete All data'),
-				fields:[{label:"test",fieldname:"test",fieldtype:"HTML",options:__("Are you sure you want to delete all performances data?")}],
-				primary_action_label: __('Delete'),
+				title: 'Delete All data',
+				fields:[{label:"test",fieldname:"test",fieldtype:"HTML",options:"Are you sure you want to delete all performances data?"}],
+				primary_action_label: 'Delete',
 				 primary_action(values) {
 			frm.call({
 				args:{"p":1,"a":1},
@@ -20,21 +20,15 @@ frappe.ui.form.on('Performance System Settings', {
 				}, 5);}
 			});
 		d.show();
-		}).addClass("btn-warning").css({'background-color':"#e05e85","color":"white"});
-		frm.add_custom_button(__("Show Dashboard"), function() {
-			var url = "goals-dashboard";
-			window.open(url,'_blank');
-		})
-
-},
+		}).addClass("btn-warning").css({'background-color':"#e05e85","color":"white"});},
 	create : function(frm) {
 		frm.call({
 			args:{"test":1},
 			method:"performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create",
 		callback: function(r){ if (r.message=="1") {
-
+		
 		frappe.show_alert({
-			message:__('Data has been created'),indicator:'green'
+			message:__('Test data has been created !'),indicator:'green'
 			},5);
 		}
 }});
@@ -62,20 +56,20 @@ frappe.ui.form.on('Competence Item', {
 			 fields: [
 				{label: 'Definition',fieldname: 'definition',fieldtype: 'Text',"read_only": 1,"default":__(row.description)},
 				{fieldname :"columnbreak1",fieldtype :"Column Break"},
-				{label : 'Importance',fieldname: 'importance',fieldtype : "Text",read_only : 1,default : __(row.importance)},
+				{label : 'Importance',fieldname: 'importance',fieldtype : "Text",read_only : 1,default : row.importance)},
 				{fieldname:"section1",fieldtype:"Section Break"},
-				{label:__("Level A (Advanced)"),fieldname:"level_a",fieldtype:"Data",read_only:1,default:__(row.level_a)},
-				{label:"Description",fieldname:"description_a",fieldtype:"Text",read_only:1,default:__(row.description_a)},
+				{label:"Level A",fieldname:"level_a",fieldtype:"Data",read_only:1,default:row.level_a},
+				{label:"Description",fieldname:"description_a",fieldtype:"Text",read_only:1,default:row.description_a},
 				{fieldname :"columnbreak1",fieldtype :"Column Break"},
-				{label:__("Level B (Intermediate)"),fieldname:"level_b",fieldtype:"Data",read_only:1,default:__(row.level_b)},
-				{label:"Description",fieldname:"description_b",fieldtype:"Text",read_only:1,default:__(row.description_b)},
+				{label:"Level B",fieldname:"level_b",fieldtype:"Data",read_only:1,default:row.level_b},
+				{label:"Description",fieldname:"description_b",fieldtype:"Text",read_only:1,default:row.description_b},
 				{fieldname :"columnbreak1",fieldtype :"Column Break"},
-				{label:__("Level C (Basic)"),fieldname:"level_c",fieldtype:"Data",read_only:1,default:__(row.level_c)},
-				{label:"Description",fieldname:"description_c",fieldtype:"Text",read_only:1,default:__(row.description_c)},
+				{label:"Level C",fieldname:"level_c",fieldtype:"Data",read_only:1,default:row.level_c},
+				{label:"Description",fieldname:"description_c",fieldtype:"Text",read_only:1,default:row.description_c},
 				{fieldname:"section2",fieldtype:"Section Break"},
-				{label :"Warning Signs",fieldname:"warning_signs",fieldtype:"Text",read_only:1,default:__(row.warning_signs)},
+				{label :"Warning Signs",fieldname:"warning_signs",fieldtype:"Text",read_only:1,default:row.warning_signs},
 				{fieldname:"columnbreak2",fieldtype:"Column Break"},
-				{label :"Positive Indicators",fieldname:"positive_indicators",fieldtype:"Text",read_only:1,default:__(row.positive_indicators)},
+				{label :"Positive Indicators",fieldname:"positive_indicators",fieldtype:"Text",read_only:1,default:row.positive_indicators},
 				],
 			primary_action_label: 'Close',
 			primary_action(values) {

@@ -113,10 +113,13 @@ fixtures= [
 
 scheduler_events = {
  	"all": [
+		"performance.test.test",
  		"performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create"
  	],
 	"cron":{
-	"* * * * *": ["performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create"]
+	"* * * * *": [
+		"performance.test.test",
+		"performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create"]
 }
 }
 # 	"daily": [

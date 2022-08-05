@@ -73,22 +73,24 @@ def auto_create(test=None):
 	for e in employees:
 		doc = frappe.new_doc('Competency Assessment Form')
 		doc.employee=e["name"]
-		doc.start_date=today
-		doc.end_date=frappe.utils.add_to_date(date=today,months=months)
+		doc.start_date=last_date
+		doc.end_date=frappe.utils.add_to_date(date=last_date,months=months,days=-1)
 		doc.total_score=0
 		doc.naming_series=settings.default_naming_series
 		doc.insert()
 		if submit:
 			doc.submit()
-		doc2 = frappe.new_doc('Performance Review')
-		doc2.employee=e["name"]
-		doc2.competencies=doc.name
-		doc2.naming_series=settings.default_naming_series_performance_review
-		doc2.insert()
-		if submit:
-			doc2.submit()
+		#doc2 = frappe.new_doc('Performance Review')
+		#doc2.employee=e["name"]
+		#doc2.competencies=doc.name
+		#doc2.naming_series=settings.default_naming_series_performance_review
+		#doc2.insert()
+		#if submit:
+			#doc2.submit()
+		#doc.performance_review=doc2.name
+		#doc.save()
 	frappe.db.commit()
-	return "1"
+	return 1
 
 @frappe.whitelist()
 def delete_all(p=None,a=None):

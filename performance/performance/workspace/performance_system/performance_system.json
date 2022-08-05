@@ -2,10 +2,12 @@
  "category": "Modules",
  "charts": [
   {
-   "chart_name": "tasks analysis"
+   "chart_name": "tasks analysis",
+   "label": "Tasks Analysis"
   },
   {
-   "chart_name": "Competences Analysis"
+   "chart_name": "Competences Analysis",
+   "label": "Competences Analysis"
   }
  ],
  "creation": "2022-07-11 11:21:46.727704",
@@ -42,6 +44,15 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Performance Period",
+   "link_to": "Performance Period",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Performance Review",
    "link_to": "Performance Review",
    "link_type": "DocType",
@@ -51,7 +62,16 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Performances",
+   "label": "Dashboard",
+   "link_to": "Goals Dashboard",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Competencies",
    "link_type": "DocType",
    "onboard": 0,
    "only_for": "",
@@ -130,15 +150,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Goals Dashboard",
-   "link_to": "Goals Dashboard",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Settings",
    "link_type": "DocType",
    "onboard": 0,
@@ -154,7 +165,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-07-27 11:54:48.679605",
+ "modified": "2022-08-05 11:46:36.379213",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System",

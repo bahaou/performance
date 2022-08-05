@@ -23,14 +23,28 @@ def get_data_columns(filters):
 		fieldname=c.competence.lower().replace(" ","_")
 		columns.append({"label": _(c.competence),"fieldname":fieldname,"type":"Data","width":130} )
 	#columns.append({"label": _("Score"),"fieldname":"total_score","type":"Data","width":120} )
+	dep=""
+	des=""
+	filter=[]
+	if "department" in filters.keys() and filters["department"]:
+		dep=filters["department"]
+	if "designation" in filters.keys() and filters["designation"]:
+		des=filters["designation"]
 	if "from_date" in filters.keys() and "to_date" in filters.keys():
-		l=frappe.db.get_list("Competency Assessment Form",filters=[[  'end_date', 'between', [filters["from_date"], filters["to_date"]]],[  'start_date', 'between', [filters["from_date"], filters["to_date"]]],["docstatus","=",1]],fields=["name","employee","total_score","employee_name"])
-	else:
-		l=frappe.db.get_list("Competency Assessment Form",filters=[["docstatus","=",1]],fields=["name","employee","total_score","employee_name"])
+		filter.append([  'end_date', 'between', [filters["from_date"], filters["to_date"]]])
+		filter.append([  'start_date', 'between', [filters["from_date"], filters["to_date"]]])
+	filter.append(["docstatus","=",1])
+
+	l=frappe.db.get_list("Competency Assessment Form",filters=filter,fields=["name","employee","total_score","employee_name"])
 	done=[]
 	data=[]
 	for i in l :
 		if i["employee"] not in done:
+			if dep or des:
+				emp=frappe.get_doc("Employee",i["employee"])
+				if (dep and  dep!=emp.department) or (des and des!=emp.designation):
+					done.append(i["employee"])
+					continue
 			d={}
 			done.append(i["employee"])
 			d["name"]=i["employee"]

@@ -161,13 +161,14 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-27 13:20:30.026824",
+ "modified": "2022-07-29 11:11:17.448724",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance Review",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -177,6 +178,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
