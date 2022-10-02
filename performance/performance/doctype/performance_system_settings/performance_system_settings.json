@@ -6,6 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "html_1",
   "maximum_monthly_tasks_section",
   "must_do",
   "column_break_25",
@@ -346,6 +347,7 @@
   {
    "fieldname": "last_update",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Last Update"
   },
   {
@@ -417,12 +419,17 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Auto Delete review on competence  deletion"
+  },
+  {
+   "fieldname": "html_1",
+   "fieldtype": "HTML",
+   "options": "<div id=\"period\" style=\"width: 100%;\"></div>"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-08-04 16:14:27.512052",
+ "modified": "2022-08-10 16:52:57.960027",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System Settings",

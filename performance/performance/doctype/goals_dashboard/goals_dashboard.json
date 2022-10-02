@@ -20,6 +20,8 @@
   "section_break_27",
   "directed_tree_settings",
   "directed_tree",
+  "no_data",
+  "no_data_html",
   "section_break_1",
   "html_2",
   "results",
@@ -50,14 +52,16 @@
   "partially_completed_color",
   "node_size",
   "show_total",
+  "language",
   "performances_section",
   "performance_settings",
-  "language"
+  "html_50",
+  "performances_table"
  ],
  "fields": [
   {
    "collapsible": 1,
-   "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
+   "depends_on": "eval: (doc.employee ==\"\" || doc.employee == null) && doc.results.length>0;",
    "fieldname": "section_break_1",
    "fieldtype": "Section Break",
    "label": "Tasks"
@@ -65,7 +69,7 @@
   {
    "fieldname": "html_2",
    "fieldtype": "HTML",
-   "options": "<style>\n#chartdiv {\ndisplay:none;\n  width: 100%;\ntext-align:left;\n  height: 500px;\n}\n</style>\n<div id=\"chartdiv\"></div>"
+   "options": "<style>\n#chartdiv {\ndirection: ltr;\ndisplay:none;\n  width: 100%;\ntext-align:left;\n  height: 500px;\n}\n</style>\n<div id=\"chartdiv\"></div>"
   },
   {
    "fieldname": "results",
@@ -75,7 +79,7 @@
    "options": "goals result"
   },
   {
-   "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
+   "depends_on": "eval:(doc.employee ==\"\" || doc.employee == null ) && doc.results.length>0;",
    "fieldname": "scores",
    "fieldtype": "HTML",
    "options": "<style>\n.right{\nfloat:right;\n}\n#chartdiv2,#charttest {\n  width: 100%;\n  height: 500px;\n}\n</style>\n<div style=\"text-align: left;\">\n<div id=\"chartdiv2\"></div>\n</div>"
@@ -130,13 +134,13 @@
    "fieldname": "gauge",
    "fieldtype": "HTML",
    "label": "gauge",
-   "options": "<div style=\"text-align: left;\">\n<span style=\"font-weight: 700; font-size: 30px;\">Tasks</span>&nbsp;&nbsp;(<span id=\"tasks\"></span><span> % of final score)</span>\n<div style=\"text-align: center;\">\n<div id=\"chartdiv3\"></div>\n<div id=\"chartnumber\" style=\"font-size: 20px;\">0</div><br>\n<div id=\"bullet1\"></div>\n\n</div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#chartdiv3 {\n  width: 100%;\n  height: 350px;\n}\n#bullet1 {\n  width: 100%;\n  height: 100px;\n}\n</style>\n"
+   "options": "<div style=\"text-align: left; direction: ltr;\">\n<span style=\"font-weight: 700; font-size: 30px;\">Tasks</span>&nbsp;&nbsp;(<span id=\"tasks\"></span><span> % of final score)</span>\n<div style=\"text-align: center;\">\n<div id=\"chartdiv3\"></div>\n<div id=\"chartnumber\" style=\"font-size: 20px;\">0</div><br>\n<div id=\"bullet1\"></div>\n\n</div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#chartdiv3 {\n  width: 100%;\n  height: 350px;\n}\n#bullet1 {\n  width: 100%;\n  height: 100px;\n}\n</style>\n"
   },
   {
    "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
    "fieldname": "radial_bar",
    "fieldtype": "HTML",
-   "options": "<div style=\"text-align: left;\">\n<span style=\"font-weight: 700; font-size: 30px;\">Competencies</span>&nbsp;&nbsp;(<span id=\"competencies\"></span><span> % of final score)</span>\n<div style=\"text-align: center;\">\n<div id=\"radialbar\"></div>\n<div id=\"bullet2\"></div>\n</div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#radialbar{\n  width: 100%;\n  height: 400px;\n}\n#bullet2{\n  width: 100%;\n  height: 100px;\n}\n\n</style>\n"
+   "options": "<div style=\"text-align: left; direction: ltr;\">\n<span style=\"font-weight: 700; font-size: 30px;\">Competencies</span>&nbsp;&nbsp;(<span id=\"competencies\"></span><span> % of final score)</span>\n<div style=\"text-align: center;\">\n<div id=\"radialbar\"></div>\n<div id=\"bullet2\"></div>\n</div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#radialbar{\ndirection: ltr;\n  width: 100%;\n  height: 400px;\n}\n#bullet2{\ndirection: ltr;\n  width: 100%;\n  height: 100px;\n}\n\n</style>\n"
   },
   {
    "fieldname": "radial_bar_data",
@@ -215,7 +219,7 @@
    "depends_on": "eval:doc.employee !=\"\" && doc.employee != null;",
    "fieldname": "directed_tree",
    "fieldtype": "HTML",
-   "options": "<div style=\"text-align: left;\">\n<span style=\"font-weight: 700; font-size: 30px;\"></span>\n<div style=\"text-align: center;\">\n<div id=\"directedtree\"></div>\n</div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#directedtree{\n  width: 100%;\n  height: 240px;\n}\n</style>\n"
+   "options": "<div style=\"text-align: left; direction: ltr;\">\n<span style=\"font-weight: 700; font-size: 30px;\"></span>\n<div style=\"text-align: center;\">\n<div id=\"directedtree\"></div>\n</div>\n</div>\n<style>\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n}\n\n#directedtree{\n  width: 100%;\n  height: 240px;\n}\n</style>\n"
   },
   {
    "fieldname": "final_color",
@@ -272,9 +276,10 @@
    "label": "partially completed color"
   },
   {
+   "depends_on": "eval:doc.results.length>0;",
    "fieldname": "tasks2",
    "fieldtype": "HTML",
-   "options": "<style>\n#reversedvalueaxis {\n  width: 107%;\nmin-width:200px !important;\n  height: 500px;\n}\n</style>\n<div style=\"text-align: left;\">\n<div id=\"reversedvalueaxis\"></div>\n</div>"
+   "options": "<style>\n#reversedvalueaxis {\n  width: 100%;\nmin-width:200px !important;\n  height: 500px;\n}\n</style>\n<div style=\"text-align: left; direction: ltr;\">\n<div id=\"reversedvalueaxis\"></div>\n</div>"
   },
   {
    "default": "40",
@@ -284,6 +289,7 @@
    "label": "node size"
   },
   {
+   "depends_on": "eval:doc.results.length>0;",
    "fieldname": "edit",
    "fieldtype": "Button",
    "label": "..."
@@ -297,7 +303,7 @@
   },
   {
    "collapsible": 1,
-   "depends_on": "eval:doc.employee ==\"\" || doc.employee == null;",
+   "depends_on": "eval: (doc.employee ==\"\" || doc.employee == null) && doc.results.length>0;",
    "fieldname": "performances_section",
    "fieldtype": "Section Break",
    "label": "Performances"
@@ -330,13 +336,36 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "language"
+  },
+  {
+   "depends_on": "eval : doc.results.length==0;",
+   "fieldname": "no_data",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval: doc.results.length==0;",
+   "fieldname": "no_data_html",
+   "fieldtype": "HTML",
+   "options": "<div style=\"text-align: center; width: 100%;\">\nNothing to show\n</div>"
+  },
+  {
+   "fieldname": "html_50",
+   "fieldtype": "HTML",
+   "options": "<style>\n#performances {\n  width: 100%;\nmin-width:200px !important;\n  height: 500px;\n}\n</style>\n<div style=\"text-align: left; direction: ltr;\">\n<div id=\"performances\"></div>\n</div>"
+  },
+  {
+   "fieldname": "performances_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "performances table",
+   "options": "performances table"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-08-05 11:28:14.539209",
+ "modified": "2022-08-08 16:21:35.247461",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Goals Dashboard",

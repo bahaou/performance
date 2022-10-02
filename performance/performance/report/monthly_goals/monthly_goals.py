@@ -127,7 +127,7 @@ def get_data_columns(filters):
 	for i in range(12):
 		d=data[i]
 		d["total"]=month_total[months[i]]
-	columns.append(_("Total") + ":Data:90")
+	columns.append({"label": _("Total"),"fieldname":"total","type":"Data","width":120})
 	scores=settings.scores
 	rate=0
 	description="unknown"

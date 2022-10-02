@@ -20,13 +20,14 @@ frappe.ui.form.on('Goals Dashboard', {
 	},
 	from_date : function(frm){frm.refresh()},to_date : function(frm){frm.refresh()},department:function(frm){frm.refresh()},designation:function(frm){frm.refresh()},
 	refresh: function(frm) {
-	frappe.require("/assets/performance/js/charts/line_chart.js")
-	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);cur_frm.fields_dict['section_break_1'].collapse();}
+	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);
+cur_frm.fields_dict['section_break_1'].collapse();cur_frm.fields_dict['performances_section'].collapse();}
+
 	else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);} ;
 	cur_frm.fields_dict['section_break_27'].collapse();$("#directedtree").height(frm.doc.node_size*6);},
 	employee : function(frm){
 	if (frm.doc.employee =="" || frm.doc.employee==null ){ refresh_chart_scores(frm);refresh_line_chart(frm);
-		cur_frm.fields_dict['section_break_1'].collapse();
+		cur_frm.fields_dict['section_break_1'].collapse();cur_frm.fields_dict['performances_section'].collapse();
 }
 				else { refresh_gauge(frm);refresh_radial_bar(frm);refresh_bullet1(frm);refresh_bullet2(frm);refresh_directed_force_tree(frm);
 				cur_frm.fields_dict['section_break_27'].collapse();
@@ -73,6 +74,7 @@ frappe.ui.form.on('Goals Dashboard', {
 		d.show();}
 });
 function refresh_line_chart(frm){
+	if (frm.doc.results.length >0) {
 	var yfields=[{"label":__("Must Do"),"fieldname":"must_do","color":frm.doc.must_do_color},
 		{"label":__("Should Do"),"fieldname":"should_do","color":frm.doc.should_do_color},
 		{"label":__("Could Do"),"fieldname":"could_do","color":frm.doc.could_do_color}]
@@ -81,38 +83,44 @@ function refresh_line_chart(frm){
 		yfields.splice(0,0,{"label":"Total Score","fieldname":"score","color":"#ab6598"})}
 	var xfield="user";
 	var data=frm.doc.results;
-	console.log(data);
+	$("#reversedvalueaxis").show();
 	create_line_chart("reversedvalueaxis",data,xfield,yfields);
-
+	yfields=[{"label":__("Total Score"),"fieldname":"comp","color":"#0000ff"}]
+	for (var i =0;i<frm.doc.performances_table.length;i++){
+		yfields.push({"label":__(frm.doc.performances_table[i].name1),"fieldname":frm.doc.performances_table[i].label,"color":frm.doc.performances_table[i].color})
+	}
+	create_line_chart("performances",data,xfield,yfields);
+	
+}else{$("#reversedvalueaxis").hide();}
 }
 function refresh_directed_force_tree(frm,size=40){
 	var competencies=[];
 	for (var i =0; i <frm.doc.radial_bar_data.length;i++){
-		var t={name:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value,nodeSettings: {fill: am5.color(frm.doc.radial_bar_data[i].color)}};
+		var t={name:__(frm.doc.radial_bar_data[i].category),value:frm.doc.radial_bar_data[i].value,nodeSettings: {fill: am5.color(frm.doc.radial_bar_data[i].color)}};
 		competencies.push(t);
 	}
 	var tasks=[]
 	for (var i = 0;i<frm.doc.score_table.length;i++){
 		var child=[]
 		if (frm.doc.score_table[i].score >0){
-			child.push({name:"Completed",value:frm.doc.score_table[i].completed,nodeSettings: {fill: am5.color(frm.doc.completed_color)}});
-			child.push({name:"P .Completed",value:frm.doc.score_table[i].partially_completed,nodeSettings: {fill: am5.color(frm.doc.partially_completed_color)}});
-			child.push({name:"Uncompleted",value:frm.doc.score_table[i].uncompleted,nodeSettings: {fill: am5.color(frm.doc.uncompleted_color)}})
+			child.push({name:__("Completed"),value:frm.doc.score_table[i].completed,nodeSettings: {fill: am5.color(frm.doc.completed_color)}});
+			child.push({name:__("P .Completed"),value:frm.doc.score_table[i].partially_completed,nodeSettings: {fill: am5.color(frm.doc.partially_completed_color)}});
+			child.push({name:__("Uncompleted"),value:frm.doc.score_table[i].uncompleted,nodeSettings: {fill: am5.color(frm.doc.uncompleted_color)}})
 		}
 		var color="";
 		if  (frm.doc.score_table[i].name1 =="Must Do"){color=frm.doc.must_do_color;}
 		 if  (frm.doc.score_table[i].name1 =="Should Do"){color=frm.doc.should_do_color;}
 		 if  (frm.doc.score_table[i].name1 =="Could Do"){color=frm.doc.could_do_color;}
-		t={name: frm.doc.score_table[i].name1,value:frm.doc.score_table[i].score,children: child,nodeSettings: {fill: am5.color(color)}};
+		t={name: __(frm.doc.score_table[i].name1),value:frm.doc.score_table[i].score,children: child,nodeSettings: {fill: am5.color(color)}};
 		tasks.push(t);
 	}
 	//console.log(tasks)
 	//var must_do= {name: "Must Do",value:0,children: []};
 	//var should_do= {name: "Should Do",value:0,children: []};
 	//var could_do= {name: "Could Do",value:0,children: []}
-	var skills = {name: "Competencies",value:frm.doc.competence_score,children:competencies};
-	var task = {name: "Tasks",value:frm.doc.tasks_score,children: tasks}
-	var data = {name: "Score",value:frm.doc.final_score,children: [skills,task],x:0,y:0,nodeSettings: {fill: am5.color(frm.doc.final_color)}}
+	var skills = {name: __("Competencies"),value:frm.doc.competence_score,children:competencies};
+	var task = {name: __("Tasks"),value:frm.doc.tasks_score,children: tasks}
+	var data = {name: __("Score"),value:frm.doc.final_score,children: [skills,task],x:0,y:0,nodeSettings: {fill: am5.color(frm.doc.final_color)}}
 	if ( frm.doc.node_size == null || frm.doc.node_size ==""){frm.set_value("node_size",40)};
 	create_force_directed_tree("directedtree",data,frm.doc.node_size,5,10,100);
 
@@ -141,7 +149,7 @@ function refresh_gauge(frm){
 function refresh_radial_bar(frm){
 	var data=[]
 	for (var i=0;i<frm.doc.radial_bar_data.length;i++){
-		data.push({category:frm.doc.radial_bar_data[i].category,value:frm.doc.radial_bar_data[i].value,network:frm.doc.radial_bar_data[i].category})
+		data.push({category:__(frm.doc.radial_bar_data[i].category),value:frm.doc.radial_bar_data[i].value,network:__(frm.doc.radial_bar_data[i].category)})
 	}
 	create_sorted_bar_chart("radialbar",data,4);
 
@@ -168,8 +176,10 @@ function refresh_chart_scores(frm){
 		});
 		refresh_field("results");
 		var users=frm.doc.results.length;
+		if (users>0){
+		$("#chartdiv2").show();
 		$("#chartdiv2").height(70*(users+1));
-		set_chart_scores(frm);
+		set_chart_scores(frm);}else{$("#chartdiv2").hide()}
 
 }
 function set_chart1(frm){

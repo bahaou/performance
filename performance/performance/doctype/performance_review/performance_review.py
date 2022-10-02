@@ -59,7 +59,9 @@ class PerformanceReview(Document):
 			item.uncompleted=do["Uncompleted"]
 			item.score=do["s"]
 		self.tasks_rate,self.tasks_description,self.tasks_color=get_tasks_rate(settings,total_score)
-		self.skills_color=get_color(settings,self.skills_rate)
+		self.skills_color,a=get_color(settings,self.skills_rate)
+		self.final_rate=((float(self.skills_rate)*float(settings.skills_evaluation))/100)+((float(self.tasks_rate)*float(settings.goals_evaluation))/100)
+		self.final_color,self.description=get_color(settings,self.final_rate)
 def get_tasks_rate(settings,score):
 	scores=settings.scores
 	for s in scores:
@@ -75,8 +77,8 @@ def get_color(settings,rate):
 	scores=settings.scores
 	for s in scores:
 		if int(s.rating)==ceil(rate):
-			return(s.color)
-	return("#ebab34")
+			return(s.color,s.description)
+	return("#ebab34","unknown")
 
 def get_score(settings,status,priority):
 	cmd=settings.completed_must_do

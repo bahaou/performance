@@ -12,7 +12,9 @@
   "to_date",
   "is_active",
   "column_break_3",
-  "company"
+  "company",
+  "amended_from",
+  "period_status"
  ],
  "fields": [
   {
@@ -33,6 +35,7 @@
    "default": "0",
    "fieldname": "is_active",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Is Active"
   },
   {
@@ -42,21 +45,39 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Company",
    "options": "Company",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Performance Period",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "period_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "period status",
+   "options": "Passed\nCurrent\nFuture",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-05 11:49:06.165007",
+ "modified": "2022-08-10 17:21:05.501521",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance Period",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -66,30 +87,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "HR Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "HR User",
-   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

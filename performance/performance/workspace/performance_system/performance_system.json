@@ -71,6 +71,15 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Individual development plan",
+   "link_to": "Individual development plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Competencies",
    "link_type": "DocType",
    "onboard": 0,
@@ -165,7 +174,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-08-05 11:46:36.379213",
+ "modified": "2022-08-10 16:28:07.734906",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance System",
@@ -173,6 +182,13 @@
  "owner": "Administrator",
  "pin_to_bottom": 0,
  "pin_to_top": 1,
- "shortcuts": [],
- "shortcuts_label": "Index of the annual performance plan"
+ "shortcuts": [
+  {
+   "doc_view": "",
+   "label": "Dashboard",
+   "link_to": "Goals Dashboard",
+   "type": "DocType"
+  }
+ ],
+ "shortcuts_label": ""
 }

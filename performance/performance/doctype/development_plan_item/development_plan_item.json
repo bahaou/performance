@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-08 10:29:58.448661",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "areas_of_development",
+  "connecting_to_goals_and_competencies",
+  "planned_development_activity_with_time_frame",
+  "progress_within_6_months",
+  "year_end_progress"
+ ],
+ "fields": [
+  {
+   "fieldname": "areas_of_development",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "areas of development"
+  },
+  {
+   "fieldname": "connecting_to_goals_and_competencies",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Connecting to goals and competencies"
+  },
+  {
+   "fieldname": "planned_development_activity_with_time_frame",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Planned development activity with time frame"
+  },
+  {
+   "fieldname": "progress_within_6_months",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Progress within 6 months"
+  },
+  {
+   "fieldname": "year_end_progress",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "year end progress"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-08 10:30:31.474090",
+ "modified_by": "Administrator",
+ "module": "Performance",
+ "name": "Development Plan Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -14,6 +14,10 @@
   "start_date",
   "end_date",
   "section_break_7",
+  "final",
+  "final_rate",
+  "description",
+  "section_break_777",
   "tasks",
   "column_break_9",
   "skills",
@@ -27,7 +31,9 @@
   "skills_table",
   "skills_color",
   "amended_from",
-  "naming_series"
+  "naming_series",
+  "final_color",
+  "period"
  ],
  "fields": [
   {
@@ -41,7 +47,7 @@
    "fieldname": "employee_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Employee NAme",
+   "label": "Employee Name",
    "read_only": 1
   },
   {
@@ -156,12 +162,46 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Naming Series"
+  },
+  {
+   "fieldname": "final_rate",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "final rate"
+  },
+  {
+   "fieldname": "section_break_777",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "description"
+  },
+  {
+   "fieldname": "final_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "final_color"
+  },
+  {
+   "fieldname": "final",
+   "fieldtype": "HTML",
+   "options": "<div style=\"font-size: 28px;\"><span id=\"final_score\"></span> , <span id=\"description\"></span>.</div>\n"
+  },
+  {
+   "fetch_from": "competencies.period",
+   "fieldname": "period",
+   "fieldtype": "Link",
+   "label": "period",
+   "options": "Performance Period"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-29 11:11:17.448724",
+ "modified": "2022-08-05 16:38:13.194311",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "Performance Review",

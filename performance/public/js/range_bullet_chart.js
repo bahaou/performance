@@ -50,7 +50,7 @@ series.bullets.push(function () {
   });
 });
 var series2 = chart.series.push(am5xy.LineSeries.new(root, {
-  name: "Score",
+  name: __("Score"),
   xAxis: xAxis,
   yAxis: yAxis,
   valueXField: "average",

@@ -41,17 +41,15 @@ class PerformanceSystemSettings(Document):
 			change_color_for("Draft",self.draft_color)
 		if old_doc.cancelled_color != self.cancelled_color:
 			change_color_for("Cancelled",self.cancelled_color)
-
-	@frappe.whitelist()
-	def current_period(self):
-		l=frappe.db.get_list("Performance Period",fields=["name","from_date","to_date","period_status"])
-		for i in l:
-			if i["period_status"] == "Current":
-				return _("Current Period : {0} -> {1}").format(i['from_date'].strftime("%d-%m-%Y ") ,i["to_date"].strftime("%d-%m-%Y"))
-		return _("Current Period is undefined.")
 def change_color_for(status,color):
 	frappe.db.sql("update `tabTo Do` set color ='{}' where status ='{}'".format(color,status))
 	frappe.db.commit()
+
+
+@frappe.whitelist()
+def current_period():
+	l=frappe.db
+
 
 @frappe.whitelist()
 def auto_create(test=None):

@@ -13,7 +13,16 @@
   "color",
   "must_do",
   "should_do",
-  "could_do"
+  "could_do",
+  "comp1",
+  "comp2",
+  "comp3",
+  "comp4",
+  "comp5",
+  "comp6",
+  "comp7",
+  "comp8",
+  "comp"
  ],
  "fields": [
   {
@@ -60,12 +69,57 @@
    "fieldname": "could_do",
    "fieldtype": "Data",
    "label": "could do"
+  },
+  {
+   "fieldname": "comp1",
+   "fieldtype": "Data",
+   "label": "comp1"
+  },
+  {
+   "fieldname": "comp2",
+   "fieldtype": "Data",
+   "label": "comp2"
+  },
+  {
+   "fieldname": "comp3",
+   "fieldtype": "Data",
+   "label": "comp3"
+  },
+  {
+   "fieldname": "comp4",
+   "fieldtype": "Data",
+   "label": "comp4"
+  },
+  {
+   "fieldname": "comp5",
+   "fieldtype": "Data",
+   "label": "comp5"
+  },
+  {
+   "fieldname": "comp6",
+   "fieldtype": "Data",
+   "label": "comp6"
+  },
+  {
+   "fieldname": "comp7",
+   "fieldtype": "Data",
+   "label": "comp7"
+  },
+  {
+   "fieldname": "comp8",
+   "fieldtype": "Data",
+   "label": "comp8"
+  },
+  {
+   "fieldname": "comp",
+   "fieldtype": "Data",
+   "label": "comp"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-07-26 15:08:49.128149",
+ "modified": "2022-08-08 12:20:13.199008",
  "modified_by": "Administrator",
  "module": "Performance",
  "name": "goals result",

@@ -6,18 +6,23 @@ frappe.ui.form.on('Performance System Settings', {
 		 frm.add_custom_button(__("Delete All"), function() {
 			let d = new frappe.ui.Dialog({
 				title: __('Delete All data'),
-				fields:[{label:"test",fieldname:"test",fieldtype:"HTML",options:__("Are you sure you want to delete all performances data?")}],
+				fields:[{label:"Periods",fieldname:"periods",fieldtype:"MultiSelectList",options:"Performance Period",
+					get_data: function(txt) {
+						return frappe.db.get_link_options('Performance Period', txt)}
+					
+},
+					{label:"test",fieldname:"test",fieldtype:"HTML",options:__("Are you sure you want to delete all performances data?")}],
 				primary_action_label: __('Delete'),
 				 primary_action(values) {
 			frm.call({
-				args:{"p":1,"a":1},
+				args:{"periods":values['periods'],"p":1,"a":1,"per":1},
 				method:"performance.performance.doctype.performance_system_settings.performance_system_settings.delete_all"
 			})
 				d.hide();
 				frappe.show_alert({
 					 message:__('Performance Data Deleted !'),
 					indicator:'green'
-				}, 5);}
+				}, 5);frm.reload_doc()}
 			});
 		d.show();
 		}).addClass("btn-warning").css({'background-color':"#e05e85","color":"white"});
@@ -25,13 +30,25 @@ frappe.ui.form.on('Performance System Settings', {
 			var url = "goals-dashboard";
 			window.open(url,'_blank');
 		})
-
+		frm.call({
+			doc:frm.doc,
+			method:"current_period",
+			callback : function(r){$("#period").html(r.message)}
+		})
 },
 	create : function(frm) {
 		frm.call({
 			args:{"test":1},
 			method:"performance.performance.doctype.performance_system_settings.performance_system_settings.auto_create",
-		callback: function(r){ if (r.message=="1") {
+		callback: function(r){
+		if (r.message != "baha"){
+		frappe.msgprint({
+			title: __('Data has been created'),
+			indicator: 'green',
+			message: __(r.message)
+		});
+		frm.reload_doc();
+
 
 		frappe.show_alert({
 			message:__('Data has been created'),indicator:'green'
